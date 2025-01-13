@@ -1,4 +1,4 @@
-# Your startup name here
+# Greenhouse To-do List (working title)
 
 [My Notes](notes.md)
 
