@@ -38,6 +38,10 @@ This will be the homepage of the application. It will look like a greenhouse wit
 
 This will be the user's to-do list. It will look like a field guide or journal and display the user's current tasks. Each task will have a checkbox to click when it has been completed. There will also be a greenhouse button to return to the homepage and a pencil button to add a new task.
 
+![Backpack](./images/backpack.png)
+
+This will be the user's inventory. It will display each of the user's collected seed and pot types, as well as their quantities. There will be a greenhouse button to return to the homepage.
+
 ```mermaid
 sequenceDiagram
     actor You
