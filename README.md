@@ -46,13 +46,6 @@ This will be the user's inventory. It will display each of the user's collected 
 
 This will be the authentification page for the application. Users will log in using their unique username and password, as well as a Greenhouse ID. The Greenhouse ID will allow them to collaborate on shared to-do lists as anyone with the ID will be able to join and contribute to that greenhouse.
 
-```mermaid
-sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
-```
-
 ### Key features
 
 - Simple, easy-to-use task tracking
@@ -63,12 +56,12 @@ sequenceDiagram
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - Basic structure for the four main webpages.
+- **CSS** - Cohesive styling throughout the application, including colors and font. Manage spacing between elements on different display sizes.
+- **React** - Provide transistions between pages, animations for feeding, watering, and planting, and represent new task creation.
+- **Service** - Retrieve plants and previously saved tasks, store inventory, create to-do list with Todoist API.
+- **DB/Login** - Register and log in users, store users and greenhouses in database, require credentials to access greenhouses. 
+- **WebSocket** - In shared greenhouses, update plants and tasks in real time when other users complete tasks.
 
 ## 🚀 AWS deliverable
 
