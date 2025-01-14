@@ -43,9 +43,9 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Simple, easy-to-use task tracking
+- Incentive to complete tasks
+- Personal or shared to-do lists
 
 ### Technologies
 
