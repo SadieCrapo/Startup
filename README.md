@@ -42,6 +42,10 @@ This will be the user's to-do list. It will look like a field guide or journal a
 
 This will be the user's inventory. It will display each of the user's collected seed and pot types, as well as their quantities. There will be a greenhouse button to return to the homepage.
 
+![Login](./images/login.png)
+
+This will be the authentification page for the application. Users will log in using their unique username and password, as well as a Greenhouse ID. The Greenhouse ID will allow them to collaborate on shared to-do lists as anyone with the ID will be able to join and contribute to that greenhouse.
+
 ```mermaid
 sequenceDiagram
     actor You
