@@ -30,9 +30,9 @@ Traditional to-do lists are boring and often end up unfinished because they cann
 
 ### Design
 
-![Design image](placeholder.png)
+![Homepage](./images/homepage.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+This will be the homepage of the application. It will look like a greenhouse with shelves displaying all of the user's collected plants. There will be buttons that link to the user's to-do list (referred to as the field guide) and inventory (referred to as the backpack), as well as buttons to complete actions such as watering and feeding the plants, and planting new seeds.
 
 ```mermaid
 sequenceDiagram
