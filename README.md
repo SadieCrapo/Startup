@@ -34,6 +34,10 @@ Traditional to-do lists are boring and often end up unfinished because they cann
 
 This will be the homepage of the application. It will look like a greenhouse with shelves displaying all of the user's collected plants. There will be buttons that link to the user's to-do list (referred to as the field guide) and inventory (referred to as the backpack), as well as buttons to complete actions such as watering and feeding the plants, and planting new seeds.
 
+![Field Guide](./images/field-guide.png)
+
+This will be the user's to-do list. It will look like a field guide or journal and display the user's current tasks. Each task will have a checkbox to click when it has been completed. There will also be a greenhouse button to return to the homepage and a pencil button to add a new task.
+
 ```mermaid
 sequenceDiagram
     actor You
