@@ -14,7 +14,17 @@ I learned how to write markdown, which is going to be very useful moving forward
 
 ## AWS Notes
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+AWS Account ID
+1952-7566-3893
+
+Security group called launch-wizard-1
+
+Elastic IP address = 44.219.208.32
+
+Command to ssh into live server: 
+```sh
+    ssh -i /[key pair file] ubuntu@[ip address]
+```
 
 ## HTML Notes
 
