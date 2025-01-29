@@ -73,15 +73,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - I created 4 HTML documents to represent the 4 main pages of my applicatiion.
+- [x] **Proper HTML element usage** - I used the proper HTML tags to represent the different elements of my application, including checkboxes, buttons, images, and formatting elements such as strikthrough.
+- [x] **Links** - I included links to the 4 main pages via their relative paths, and a link to my GitHub repository using its absolute path.
+- [x] **Text** - I added text to display the content of the application.
+- [x] **3rd party API placeholder** - My field-guide.html file includes buttons that will eventually be used to call the Todoist API.
+- [ ] **Images** - I added img tags with alternative text to greenhouse.html and backpack.html to represent the user's plant collection and inventory. I am working on creating .png files for each of these placeholders.
+- [x] **Login placeholder** - My index.html file has fields for the user to input login information. The other pages each display the user's name after they have logged in.
+- [x] **DB data placeholder** - greenhouse.html, backpack.html, and field-guide.html contain representations of data that will eventually be stored in a database. greenhouse.html and backpack.html show the user's previously collected items, and field-guide.html shows the user's previously saved tasks.
+- [x] **WebSocket placeholder** - field-guide.html shows tasks that have been completed by other users. I will eventually use WebSocket to update these tasks in real time.
 
 ## 🚀 CSS deliverable
 
