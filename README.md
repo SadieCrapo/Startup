@@ -78,7 +78,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **Links** - I included links to the 4 main pages via their relative paths, and a link to my GitHub repository using its absolute path.
 - [x] **Text** - I added text to display the content of the application.
 - [x] **3rd party API placeholder** - My field-guide.html file includes buttons that will eventually be used to call the Todoist API.
-- [ ] **Images** - I added img tags with alternative text to greenhouse.html and backpack.html to represent the user's plant collection and inventory. I am working on creating .png files for each of these placeholders.
+- [x] **Images** - I added img tags with alternative text to greenhouse.html and backpack.html to represent the user's plant collection and inventory. I am working on creating .png files for each of these placeholders and adding them as they are completed.
 - [x] **Login placeholder** - My index.html file has fields for the user to input login information. The other pages each display the user's name after they have logged in.
 - [x] **DB data placeholder** - greenhouse.html, backpack.html, and field-guide.html contain representations of data that will eventually be stored in a database. greenhouse.html and backpack.html show the user's previously collected items, and field-guide.html shows the user's previously saved tasks.
 - [x] **WebSocket placeholder** - field-guide.html shows tasks that have been completed by other users. I will eventually use WebSocket to update these tasks in real time.
