@@ -1,0 +1,81 @@
+* {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-width: 375px;
+    margin: 0;
+    height: 100vh;
+}
+
+header {
+    flex: 0 80px;
+    background-color: rgb(206, 248, 255);
+
+    /* display: flex;
+    flex-direction: row; */
+    align-content: center;
+    /* justify-content: center; */
+}
+
+main {
+    flex: 1 calc(100vh - 110px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+footer {
+    flex: 0 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    background-color: rgb(206, 248, 255);
+}
+
+menu {
+    flex: 1;
+    display: flex;
+    /*  overwrite Bootstrap so the menu does not wrap */
+    flex-direction: row !important;
+    list-style: none;
+}
+
+/* .navbar-brand {
+    padding-left: 0.3em;
+    border-bottom: solid rgb(182, 182, 182) thin;
+} */
+
+menu .nav-item {
+    padding: 0 0.3em;
+}
+
+h1 {
+    padding-bottom: 0.4em;
+}
+
+footer > div {
+    padding: 0.5em;
+}
+/* footer a {
+    float: right;
+} */
+
+@media (max-height: 600px) {
+    header {
+        display: none;
+    }
+
+    footer {
+        display: none;
+    }
+
+    main {
+        flex: 1 100vh;
+    }
+}
