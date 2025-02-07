@@ -1,0 +1,38 @@
+main {
+    display: flex;
+    flex-direction: row;
+    background-color: azure;
+    /* justify-content: right; */
+}
+
+.shelves {
+    flex: 1 200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: 200px;
+    grid-gap: 1em;
+    margin: 2.5em;
+}
+
+.plant {
+    padding: 0.2em;
+}
+
+.tools {
+    flex: 0 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: end;
+    padding: 1.5em;
+    /* justify-self: right; */
+}
+
+.action-button {
+    background-color: lightblue;
+    border-radius: 35px;
+    height: 70px;
+    width: 70px;
+    padding: 0.6em;
+    margin-top: 0.6em;
+}
