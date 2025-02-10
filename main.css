@@ -66,7 +66,7 @@ menu .nav-item {
 }
 
 .active {
-    font-weight: bold;
+    font-weight: bold !important;
 }
 
 .logo {
