@@ -1,0 +1,30 @@
+main {
+    display: flex;
+    flex-direction: row;
+}
+
+.list {
+    flex: 1 200px;
+    display: flex;
+    flex-direction: column;
+    margin: 2.5em;
+}
+
+.tools {
+    flex: 0 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: end;
+    padding: 1.5em;
+    /* justify-self: right; */
+}
+
+.action-button {
+    background-color: lightblue;
+    border-radius: 35px;
+    height: 70px;
+    width: 70px;
+    /* padding: 0.6em; */
+    /* margin-top: 0.6em; */
+}
