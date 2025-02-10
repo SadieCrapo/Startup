@@ -67,7 +67,7 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
+- [x] **Server deployed and accessible with custom domain name** - [My server link](https://plantrapp.click).
 
 ## 🚀 HTML deliverable
 
@@ -87,12 +87,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Header, footer, and main content body** - I did not complete this part of the deliverable.
-- [ ] **Navigation elements** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing** - I did not complete this part of the deliverable.
-- [ ] **Application elements** - I did not complete this part of the deliverable.
-- [ ] **Application text content** - I did not complete this part of the deliverable.
-- [ ] **Application images** - I did not complete this part of the deliverable.
+- [x] **Header, footer, and main content body** - I styled the header and footer the same way for each page with a background color and flex displays to get everything centered. I gave the main section of each page a unique styling to reflect its purpose.
+- [x] **Navigation elements** - Links for navigation in the top left header on every page. Active links are bolded.
+- [x] **Responsive to window resizing** - Used flex and grid displays to make the application reconfigure itself when resized. Header and footer disapear when the window gets too small.
+- [x] **Application elements** - I used CSS to style my application elements and third-party service placeholders.
+- [x] **Application text content** - I used CSS to set font, colors, and specific formatting such as font-weight.
+- [x] **Application images** - I added margins and padding to make sure that all of my images would be spaced properly.
 
 ## 🚀 React part 1: Routing deliverable
 

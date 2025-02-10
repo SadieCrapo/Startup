@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
     <link rel="stylesheet" href="index.css" />
 
     <!-- Include bootstrap CSS framework -->
@@ -14,7 +15,7 @@
 </head>
 
 <body>
-    <header class="container-fluid">
+    <header>
         <!-- Navigation elements -->
         <!-- <nav class="navbar"> -->
         <nav>
@@ -29,8 +30,8 @@
 
     </header>
 
-    <main class="container-fluid text-center">
-        <h1>Welcome to Plantr!</h1>
+    <main class="text-center">
+        <h1 class="welcome-message">Welcome to Plantr!</h1>
         <form method="get" action="./greenhouse.html">
             <div class="input-group mb-3">
                 <!-- <span class="input-group-text">ID</span> -->
@@ -45,28 +46,14 @@
                 <input class="form-control" type="password" placeholder="password" />
             </div>
 
-            <!-- <div>
-                <span>ID</span>
-                <input type="text" placeholder="Greenhouse ID" />
-            </div>
-            <div>
-                <span>@</span>
-                <input type="text" placeholder="your@email.com" />
-            </div>
-            <div>
-                <span>🔒</span>
-                <input type="password" placeholder="password" />
-            </div> -->
             <button type="submit" class="btn btn-primary">Login</button>
             <button type="submit" class="btn btn-secondary">Create</button>
         </form>
     </main>
 
     <footer class="container-fluid">
-        <!-- <hr /> -->
         <div>
             <span>Sadie Crapo</span>
-            <!-- <br /> -->
             <!-- <a href="https://github.com/SadieCrapo/Startup">GitHub</a> -->
             <a href="https://github.com/SadieCrapo/Startup" class="text-reset">GitHub</a>
         </div>
