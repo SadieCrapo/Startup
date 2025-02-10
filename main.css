@@ -1,0 +1,104 @@
+* {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-width: 375px;
+    margin: 0;
+    height: 100vh;
+}
+
+header {
+    flex: 0 auto;
+    min-height: 80px;
+
+    /* flex: 0 80px; */
+    background-color: rgb(206, 248, 255);
+    /* padding: 0; */
+
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    flex-wrap: wrap;
+    /* justify-content: right; */
+}
+
+main {
+    flex: 0 calc(100vh - 110px);
+}
+
+footer {
+    flex: 0 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    background-color: rgb(206, 248, 255);
+}
+
+nav {
+    flex: 0 calc(100vw/3);
+    /* display: flex;
+    flex-direction: row; */
+    /* align-content: center; */
+}
+
+menu {
+    /* flex: 0 calc(100vw/3); */
+    display: flex;
+    /*  overwrite Bootstrap so the menu does not wrap */
+    flex-direction: row !important;
+    list-style: none;
+    padding: 0 1em;
+    /* justify-self: left; */
+}
+
+/* .navbar-brand {
+    padding-left: 0.3em;
+    border-bottom: solid rgb(182, 182, 182) thin;
+} */
+
+menu .nav-item {
+    padding: 0 0.3em;
+}
+
+.active {
+    font-weight: bold;
+}
+
+.logo {
+    flex: 0 calc(100vw/3);
+    align-self: center;
+    text-align: center;
+    /* justify-self: center; */
+}
+
+.welcome-user {
+    flex: 0 calc(100vw/3);
+    align-self: center;
+    text-align: right;
+    padding: 0 1em;
+
+    /* justify-self: right; */
+}
+
+footer>div {
+    padding: 0.5em;
+}
+
+@media (max-height: 600px) {
+    header {
+        display: none;
+    }
+
+    footer {
+        display: none;
+    }
+
+    main {
+        flex: 1 100vh;
+    }
+}
