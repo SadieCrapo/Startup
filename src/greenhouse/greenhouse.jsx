@@ -4,7 +4,7 @@ import './greenhouse.css';
 export function Greenhouse() {
   return (
     // <main className="container-fluid bg-secondary text-center">
-    <main>
+    <main className='greenhouse-main'>
         <div className="shelves">
             <div className="plant">
                 <img alt="A plant growing in a pot" />

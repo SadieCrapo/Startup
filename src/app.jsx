@@ -1,5 +1,5 @@
 import React from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
@@ -11,7 +11,8 @@ import { Greenhouse } from './greenhouse/greenhouse';
 export default function App() {
     return (
         <BrowserRouter>
-            <div className="body bg-dark text-light">
+            {/* <div className="body bg-dark text-light"> */}
+            <div className="body">
                 <header>
                     {/* <!-- Navigation elements --> */}
                     <nav>

@@ -4,7 +4,7 @@ import './backpack.css';
 export function Backpack() {
   return (
     // <main className="container-fluid bg-secondary text-center">
-    <main>
+    <main className='backpack-main'>
         <div className="shelves">
             <div className="item">
                 <img alt="A rosebush" />

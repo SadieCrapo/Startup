@@ -4,7 +4,7 @@ import './field-guide.css';
 export function Field_Guide() {
   return (
     // <main className="container-fluid bg-secondary text-center">
-    <main>
+    <main className='field-guide-main'>
         <div className="list">
             <div className="list-item">
                 <p>

@@ -4,7 +4,7 @@ import './login.css';
 export function Login() {
   return (
     // <main className="container-fluid bg-secondary text-center">
-    <main className="text-center">
+    <main className='login-main text-center'>
         <h1 className="welcome-message">Welcome to Plantr!</h1>
         <form method="get" action="./greenhouse.html">
             <div className="input-group mb-3">
