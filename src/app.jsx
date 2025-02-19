@@ -43,6 +43,8 @@ export default function App() {
                 <footer>
                     <div>
                         <span>Sadie Crapo</span>
+                    </div>
+                    <div>
                         <a href="https://github.com/SadieCrapo/Startup" class="text-reset">GitHub</a>
                     </div>
                 </footer>
@@ -54,4 +56,4 @@ export default function App() {
 
 function NotFound() {
     return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
-  }
+}
