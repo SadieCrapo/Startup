@@ -1,4 +1,4 @@
-# Greenhouse To-do List (working title)
+# Plantr
 
 [My Notes](notes.md)
 
