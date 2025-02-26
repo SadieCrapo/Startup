@@ -29,3 +29,16 @@ Command to ssh into live server:
 ## HTML Notes
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+[ ] Choose color scheme
+[ ] Set colors
+[ ] Fix header spacing on small screens
+[ ] Find and fix broken links
+[ ] Button styling
+[ ] Display name after login
+[ ] Make navigation hidden until login
+[ ] Create logo and icon
+[ ] Finish plant drawings
+[ ] Implement plant reactivity
+[ ] Research todo-ist API
+[ ] Create to-do mock
