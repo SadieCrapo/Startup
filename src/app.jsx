@@ -9,6 +9,7 @@ import { Field_Guide } from './field-guide/field-guide';
 import { Greenhouse } from './greenhouse/greenhouse';
 
 export default function App() {
+    const [email, setEmail] = React.useState(localStorage.getItem('email') || null);
     return (
         <BrowserRouter>
             {/* <div className="body bg-dark text-light"> */}
@@ -17,23 +18,23 @@ export default function App() {
                     {/* <!-- Navigation elements --> */}
                     <nav>
                         <menu>
-                            <li class="nav-item"><NavLink class="nav-link" to="/">Login</NavLink></li>
-                            <li class="nav-item"><NavLink class="nav-link" to="greenhouse">Greenhouse</NavLink></li>
-                            <li class="nav-item"><NavLink class="nav-link" to="field-guide">Field Guide</NavLink></li>
-                            <li class="nav-item"><NavLink class="nav-link" to="backpack">Backpack</NavLink></li>
+                            <li className="nav-item"><NavLink className="nav-link" to="/">Login</NavLink></li>
+                            {email && <li className="nav-item"><NavLink className="nav-link" to="greenhouse">Greenhouse</NavLink></li>}
+                            {email && <li className="nav-item"><NavLink className="nav-link" to="field-guide">Field Guide</NavLink></li>}
+                            {email && <li className="nav-item"><NavLink className="nav-link" to="backpack">Backpack</NavLink></li>}
                         </menu>
                     </nav>
-                    <div class="logo">
+                    <div className="logo">
                         <span>LOGO</span>
                     </div>
-                    <div class="welcome-user">
+                    <div className="welcome-user">
                         <span>Welcome MysteryUser!</span>
                     </div>
 
                 </header>
 
                 <Routes>
-                    <Route path='/' element={<Login />} exact />
+                    <Route path='/' element={<Login setEmail={setEmail} />} exact />
                     <Route path='/greenhouse' element={<Greenhouse />} />
                     <Route path='/field-guide' element={<Field_Guide />} />
                     <Route path='/backpack' element={<Backpack />} />
@@ -45,7 +46,7 @@ export default function App() {
                         <span>Sadie Crapo</span>
                     </div>
                     <div>
-                        <a href="https://github.com/SadieCrapo/Startup" class="text-reset">GitHub</a>
+                        <a href="https://github.com/SadieCrapo/Startup" className="text-reset">GitHub</a>
                     </div>
                 </footer>
 
