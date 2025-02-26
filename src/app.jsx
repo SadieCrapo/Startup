@@ -10,6 +10,8 @@ import { Greenhouse } from './greenhouse/greenhouse';
 
 export default function App() {
     const [email, setEmail] = React.useState(localStorage.getItem('email') || null);
+    const [greenhouseID, setGreenhouseID] = React.useState(localStorage.getItem('greenhouseID') || null);
+
     return (
         <BrowserRouter>
             {/* <div className="body bg-dark text-light"> */}
@@ -28,13 +30,13 @@ export default function App() {
                         <span>LOGO</span>
                     </div>
                     <div className="welcome-user">
-                        <span>Welcome MysteryUser!</span>
+                        {greenhouseID && <span>Welcome to {greenhouseID}!</span> || <span>Welcome!</span>}
                     </div>
 
                 </header>
 
                 <Routes>
-                    <Route path='/' element={<Login setEmail={setEmail} />} exact />
+                    <Route path='/' element={<Login setEmail={setEmail} setGreenhouseID={setGreenhouseID} />} exact />
                     <Route path='/greenhouse' element={<Greenhouse />} />
                     <Route path='/field-guide' element={<Field_Guide />} />
                     <Route path='/backpack' element={<Backpack />} />

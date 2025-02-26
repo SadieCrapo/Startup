@@ -16,7 +16,9 @@ header {
     min-height: 80px;
 
     /* flex: 0 80px; */
-    background-color: rgb(206, 248, 255);
+    background-color: #869F77;
+    /* background-color: #799567; */
+
     /* padding: 0; */
 
     display: flex;
@@ -36,7 +38,8 @@ footer {
     flex-direction: row;
     justify-content: center;
 
-    background-color: rgb(206, 248, 255);
+    /* background-color: #e7b5ac; */
+    background-color: #f3baba;
 }
 
 nav {
