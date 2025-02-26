@@ -1,15 +1,18 @@
 import React from 'react';
 import './login.css';
+import { useNavigate } from 'react-router-dom';
 
 export function Login({setEmail, setGreenhouseID}) {
     const [email, setEmailText] = React.useState('');
     const [greenhouseID, setID] = React.useState('');
+    const navigate = useNavigate();
 
     function loginUser() {
         localStorage.setItem('email', email);
         setEmail(email);
         localStorage.setItem('greenhouseID', greenhouseID);
         setGreenhouseID(greenhouseID);
+        navigate('/greenhouse');
     }
 
     function emailChange(e) {
