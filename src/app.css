@@ -105,3 +105,43 @@ footer>div {
         flex: 1 100vh;
     }
 }
+
+@media (max-width: 910px) {
+    /* header>*:not(.logo) {
+        display: none;
+    } */
+    header {
+        justify-content: center;
+    }
+
+    .welcome-user {
+        display: none;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .logo {
+        z-index: 1;
+    }
+
+    /* .menu {
+        visibility: hidden;
+    } */
+
+    #menuDropdown {
+        display: none;
+        position: absolute;
+        width: 100vw;
+        top: 50%;
+        /* z-index: 1; */
+
+        background-color: #869F77;
+    }
+
+    #menuDropdown.show {
+        display: block;
+    }
+}

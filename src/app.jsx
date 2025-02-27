@@ -11,15 +11,22 @@ import { Greenhouse } from './greenhouse/greenhouse';
 export default function App() {
     const [email, setEmail] = React.useState(localStorage.getItem('email') || null);
     const [greenhouseID, setGreenhouseID] = React.useState(localStorage.getItem('greenhouseID') || null);
+    const [test, setTest] = React.useState(localStorage.getItem('test') || null);
+
+    function dropdown() {
+        document.getElementById("menuDropdown").classList.toggle("show");
+        localStorage.setItem('test', test);
+        setTest("email");
+    }
 
     return (
         <BrowserRouter>
             {/* <div className="body bg-dark text-light"> */}
             <div className="body">
-                <header>
+                <header className="dropdown">
                     {/* <!-- Navigation elements --> */}
-                    <nav>
-                        <menu>
+                    <nav className="menu">
+                        <menu id="menuDropdown">
                             <li className="nav-item"><NavLink className="nav-link" to="/">Login</NavLink></li>
                             {email && <li className="nav-item"><NavLink className="nav-link" to="greenhouse">Greenhouse</NavLink></li>}
                             {email && <li className="nav-item"><NavLink className="nav-link" to="field-guide">Field Guide</NavLink></li>}
@@ -27,7 +34,7 @@ export default function App() {
                         </menu>
                     </nav>
                     <div className="logo">
-                        <span>LOGO</span>
+                        <span onClick={dropdown} className="dropbtn" >LOGO</span>
                     </div>
                     <div className="welcome-user">
                         {greenhouseID && <span>Welcome to {greenhouseID}!</span> || <span>Welcome!</span>}
