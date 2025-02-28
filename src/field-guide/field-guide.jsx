@@ -1,5 +1,6 @@
 import React from 'react';
 import './field-guide.css';
+// import '../app.css';
 
 export function Field_Guide() {
   return (
@@ -40,7 +41,7 @@ export function Field_Guide() {
         </div>
 
         <div className="tools">
-            <button className="action-button">New Task</button>
+            <button className="action-button action">New Task</button>
         </div>
     </main>
   );

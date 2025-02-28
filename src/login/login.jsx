@@ -41,8 +41,8 @@ export function Login({setEmail, setGreenhouseID}) {
                 <input className="form-control" type="password" placeholder="password" />
             </div>
 
-            <button type="submit" onClick={loginUser} className="btn btn-secondary" >Login</button>
-            <button type="submit" className="btn btn-secondary">Create</button>
+            <button type="submit" onClick={loginUser} className="btn action" >Login</button>
+            <button type="submit" className="btn action">Create</button>
         </form>
     </main>
   );

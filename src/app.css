@@ -16,7 +16,7 @@ header {
     min-height: 80px;
 
     /* flex: 0 80px; */
-    background-color: #869F77;
+    background-color: #d7d8d9;
     /* background-color: #799567; */
 
     /* padding: 0; */
@@ -29,6 +29,7 @@ header {
 }
 
 main {
+    background-color: #f2f2f2;
     flex: 0 calc(100vh - 110px);
 }
 
@@ -39,7 +40,7 @@ footer {
     justify-content: center;
 
     /* background-color: #e7b5ac; */
-    background-color: #f3baba;
+    background-color: #869f77;
 }
 
 nav {
@@ -86,6 +87,20 @@ menu .nav-item {
     padding: 0 1em;
 
     /* justify-self: right; */
+}
+
+.btn.action {
+    background-color: #f3baba;
+    border-style: none;
+    /* transition-duration: 0.4s ease; */
+}
+
+.btn.action:hover {
+    background-color: #efa8a8;
+}
+
+.btn.action:active {
+    background-color: #ed9999;
 }
 
 footer>div {
@@ -138,7 +153,7 @@ footer>div {
         top: 50%;
         /* z-index: 1; */
 
-        background-color: #869F77;
+        background-color: #d7d8d9;
     }
 
     #menuDropdown.show {
