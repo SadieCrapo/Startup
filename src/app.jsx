@@ -7,16 +7,22 @@ import { Login } from './login/login';
 import { Backpack } from './backpack/backpack';
 import { Field_Guide } from './field-guide/field-guide';
 import { Greenhouse } from './greenhouse/greenhouse';
+import { AuthState } from './login/authState';
 
 export default function App() {
-    const [email, setEmail] = React.useState(localStorage.getItem('email') || null);
+    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || null);
     const [greenhouseID, setGreenhouseID] = React.useState(localStorage.getItem('greenhouseID') || null);
     const [test, setTest] = React.useState(localStorage.getItem('test') || null);
+
+    const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
+    const [authState, setAuthState] = React.useState(currentAuthState);
+
+    const [plants, setPlants] = React.useState([]);
 
     function dropdown() {
         document.getElementById("menuDropdown").classList.toggle("show");
         localStorage.setItem('test', test);
-        setTest("email");
+        setTest("userName");
     }
 
     return (
@@ -28,9 +34,9 @@ export default function App() {
                     <nav className="menu">
                         <menu id="menuDropdown">
                             <li className="nav-item"><NavLink className="nav-link" to="/">Login</NavLink></li>
-                            {email && <li className="nav-item"><NavLink className="nav-link" to="greenhouse">Greenhouse</NavLink></li>}
-                            {email && <li className="nav-item"><NavLink className="nav-link" to="field-guide">Field Guide</NavLink></li>}
-                            {email && <li className="nav-item"><NavLink className="nav-link" to="backpack">Backpack</NavLink></li>}
+                            {userName && <li className="nav-item"><NavLink className="nav-link" to="greenhouse">Greenhouse</NavLink></li>}
+                            {userName && <li className="nav-item"><NavLink className="nav-link" to="field-guide">Field Guide</NavLink></li>}
+                            {userName && <li className="nav-item"><NavLink className="nav-link" to="backpack">Backpack</NavLink></li>}
                         </menu>
                     </nav>
                     <div className="logo">
@@ -43,8 +49,29 @@ export default function App() {
                 </header>
 
                 <Routes>
-                    <Route path='/' element={<Login setEmail={setEmail} setGreenhouseID={setGreenhouseID} />} exact />
-                    <Route path='/greenhouse' element={<Greenhouse />} />
+                    <Route
+                        path='/' 
+                        element={
+                            <Login
+                                userName={userName}
+                                authState={authState}
+                                onAuthChange={(userName, authState) => {
+                                    setAuthState(authState);
+                                    setUserName(userName);
+                                }}
+                            />
+                        }
+                        exact
+                    />
+                    {/* <Route path='/' element={<Login setUserName={setUserName} setGreenhouseID={setGreenhouseID} />} exact /> */}
+                    <Route
+                        path='/greenhouse'
+                        element={
+                            <Greenhouse
+                                plants={plants}
+                            />
+                        }
+                    />
                     <Route path='/field-guide' element={<Field_Guide />} />
                     <Route path='/backpack' element={<Backpack />} />
                     <Route path='*' element={<NotFound />} />

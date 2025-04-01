@@ -14,7 +14,7 @@ class Plant {
     grow() {
         if (this.age < 4) {
             this.age += 1;
-            setURL()
+            this.setURL()
         }
 
     }
@@ -24,49 +24,58 @@ class Plant {
     }
 }
 
-class Monstera extends Plant {
+export class Monstera extends Plant {
     setURL() {
         imageURL = "./images/" + this.potType;
         switch (this.age) {
             case 2: this.URL = imageURL + "/seedling.png";
+            break;
             case 3: this.URL = imageURL + "/monstera-young.png";
+            break;
             case 4: this.URL = imageURL + "/monstera.png";
+            break;
         }
     }
 }
 
-class Daisy extends Plant {
+export class Daisy extends Plant {
     setURL() {
         imageURL = "./images/" + this.potType;
         switch (this.age) {
             case 2: this.URL = imageURL + "/seedling.png";
+            break;
             case 3: this.URL = imageURL + "/daisy-young.png";
+            break;
             case 4: this.URL = imageURL + "/daisy.png";
+            break;
         }
     }
 }
 
-class Daisy extends Plant {
+export class Laceleaf extends Plant {
     setURL() {
         imageURL = "./images/" + this.potType;
         switch (this.age) {
             case 2: this.URL = imageURL + "/seedling.png";
-            case 3: this.URL = imageURL + "/daisy-young.png";
-            case 4: this.URL = imageURL + "/daisy.png";
+            break;
+            case 3: this.URL = imageURL + "/laceleaf-young.png";
+            break;
+            case 4: this.URL = imageURL + "/laceleaf.png";
+            break;
         }
     }
 }
 
-export class Plant {
-    constructor(type) {
-        this.potType = type;
-        // this.species = species;
-        this.age = 1;
-    }
+// export class Plant {
+//     constructor(type) {
+//         this.potType = type;
+//         // this.species = species;
+//         this.age = 1;
+//     }
 
-    grow() {
-        if (this.age < 4) {
-            this.age += 1;
-        }
-    }
-}
+//     grow() {
+//         if (this.age < 4) {
+//             this.age += 1;
+//         }
+//     }
+// }
