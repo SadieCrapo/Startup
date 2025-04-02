@@ -5,11 +5,13 @@ import './plant';
 // import '../app.css';
 
 export function Greenhouse({plants}) {
+    const [food, setFood] = React.useState(localStorage.getItem('food') || 0);
+    const [water, setWater] = React.useState(localStorage.getItem('water') || 0);
     // const [plants, setPlants] = React.useState([]);
     // localStorage.setItem('plants', plants);
     // localStorage.setItem('plants', [])
     // plantList = localStorage.getItem('plants')
-    //     setUserName(userName);
+    // setUserName(userName);
 
     const PlantComponent = ({ plant }) => {
         return (
@@ -18,6 +20,30 @@ export function Greenhouse({plants}) {
             </div>
         );
     };
+
+    function feedAll() {
+        localStorage.setItem('water', 4);
+        if (food > 0) {
+            setFood(food - 1);
+            localStorage.setItem('food', food - 1);
+            growAll();
+        }
+    }
+
+    function waterAll() {
+        if (water > 0) {
+            setWater(water - 1);
+            localStorage.setItem('water', water);
+            growAll();
+        }
+    }
+
+    function growAll() {
+        for (let index = 0; index < plants.length; index++) {
+            const plant = plants[index];
+            plant.grow();
+        }
+    }
 
   return (
     // <main className="container-fluid bg-secondary text-center">
@@ -66,9 +92,9 @@ export function Greenhouse({plants}) {
             </div>
         </div> */}
         <div className="tools">
-            <button className="action-button action">Plant</button>
-            <button className="action-button action">Feed</button>
-            <button className="action-button action">Water</button>
+            <button className="action-button btn action">Plant</button>
+            <button onClick={feedAll} className="action-button btn action">Feed</button>
+            <button onClick={waterAll} className="action-button btn action">Water</button>
         </div>
     </main>
   );
