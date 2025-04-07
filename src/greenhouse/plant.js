@@ -1,8 +1,8 @@
-const Pot = Object.freeze({
-    MARBLE: 'marble',
-    TERRACOTTA: 'terracotta',
-    HANGING: 'hanging'
-});
+// const Pot = Object.freeze({
+//     MARBLE: 'marble',
+//     TERRACOTTA: 'terracotta',
+//     HANGING: 'hanging'
+// });
 
 class Plant {
     constructor(type) {
@@ -26,7 +26,7 @@ class Plant {
 
 export class Monstera extends Plant {
     setURL() {
-        imageURL = "./images/" + this.potType;
+        var imageURL = "./images/" + this.potType;
         switch (this.age) {
             case 2: this.URL = imageURL + "/seedling.png";
             break;
@@ -40,7 +40,7 @@ export class Monstera extends Plant {
 
 export class Daisy extends Plant {
     setURL() {
-        imageURL = "./images/" + this.potType;
+        var imageURL = "./images/" + this.potType;
         switch (this.age) {
             case 2: this.URL = imageURL + "/seedling.png";
             break;
@@ -54,7 +54,7 @@ export class Daisy extends Plant {
 
 export class Laceleaf extends Plant {
     setURL() {
-        imageURL = "./images/" + this.potType;
+        var imageURL = "./images/" + this.potType;
         switch (this.age) {
             case 2: this.URL = imageURL + "/seedling.png";
             break;

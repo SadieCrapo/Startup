@@ -7,7 +7,7 @@ import { PlantingActive } from './planting-active';
 import { PlantingInactive } from './planting-inactive';
 // import '../app.css';
 
-export function Greenhouse({ plants, plantingState, foodInventory, decreaseInventoryFromFeeding, decreaseInventoryFromPlanting, setPlantingActive }) {
+export function Greenhouse({ plants, plantingState, plantInventory, potInventory, foodInventory, decreaseInventoryFromFeeding, decreaseInventoryFromPlanting, addPlant, setPlantingActive, setPlantingInactive }) {
     // const [food, setFood] = React.useState(localStorage.getItem('food') || 0);
     // const [water, setWater] = React.useState(localStorage.getItem('water') || 0);
     // const [plants, setPlants] = React.useState([]);
@@ -62,8 +62,12 @@ export function Greenhouse({ plants, plantingState, foodInventory, decreaseInven
             )}
             {plantingState === PlantingState.Active && (
                 <PlantingActive
-                    plants={plants}
+                    // plants={plants}
+                    plantInventory={plantInventory}
+                    potInventory={potInventory}
                     decreaseInventoryFromPlanting={decreaseInventoryFromPlanting}
+                    addPlant={addPlant}
+                    setPlantingInactive={setPlantingInactive}
         // onLogin={(loginUsername) => {
         //     onAuthChange(loginUsername, AuthState.Authenticated);
         // }}

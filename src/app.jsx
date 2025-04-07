@@ -8,6 +8,7 @@ import { Backpack } from './backpack/backpack';
 import { Field_Guide } from './field-guide/field-guide';
 import { Greenhouse } from './greenhouse/greenhouse';
 import { AuthState } from './login/authState';
+import { PlantingState } from './greenhouse/plantingState';
 
 export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || null);
@@ -17,6 +18,7 @@ export default function App() {
     const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
 
+    const [plantingState, setPlantingState] = React.useState(PlantingState.Inactive);
     const [plants, setPlants] = React.useState([]);
 
     const [list, setList] = React.useState([]);
@@ -96,6 +98,46 @@ export default function App() {
                         element={
                             <Greenhouse
                                 plants={plants}
+                                plantingState={plantingState}
+                                plantInventory={plantInventory}
+                                potInventory={potInventory}
+                                foodInventory={foodInventory}
+                                decreaseInventoryFromFeeding={(foodType) => {
+                                    setFoodInventory(prev => {
+                                        return {
+                                            ...prev,
+                                            [foodType]: prev[foodType] - 1,
+                                        }
+                                    })
+                                }}
+                                decreaseInventoryFromPlanting={(plant, pot) => {
+                                    // onAuthChange={(userName, greenhouseID, authState) => {
+                                        // setAuthState(authState);
+                                        // setGreenhouseID(greenhouseID);
+                                        // setUserName(userName);
+                                        setPlantInventory(prev => {
+                                            return {
+                                                ...prev,
+                                                [plant]: prev[plant] - 1
+                                            };
+                                        });
+                                        setPotInventory(prev => {
+                                            return {
+                                                ...prev,
+                                                [pot]: prev[pot] - 1
+                                            };
+                                        });
+                                    }}
+                                addPlant={(plant) => {
+                                    setPlants((prev) => [...prev, plant]);
+                                    console.log(plants);
+                                }}
+                                setPlantingActive={() => {
+                                    setPlantingState(PlantingState.Active);
+                                }}
+                                setPlantingInactive={() => {
+                                    setPlantingState(PlantingState.Inactive);
+                                }}
                             />
                         }
                     />

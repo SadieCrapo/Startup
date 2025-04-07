@@ -7,8 +7,24 @@ export function PlantingInactive({plants, foodInventory, decreaseInventoryFromFe
     const PlantComponent = ({ plant }) => {
         return (
             <div className="plant">
-                <img src={plant.imageUrl} alt="A plant growing in a pot" />
+                <img src={plant.URL}
+                    onError={(e) => {
+                        e.target.src = "/images/placeholder.png";
+                    }}
+                    alt="A plant growing in a pot"
+                    height="200"
+                />
             </div>
+
+    //         <div className="plant">
+    //         {/* <img src={plant.imageUrl} */}
+    //         <img src="./images/placeholder.png"
+    // onError={(e) => {
+    //     e.target.src = "./images/placeholder.png";
+    // }}
+    //             alt="A new plant growing in a pot"
+    //         />
+    //         </div>
         );
     };
 

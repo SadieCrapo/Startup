@@ -17,20 +17,26 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-auto-rows: 200px;
     grid-gap: 1em;
+    row-gap: 2.5em;
     margin: 2.5em;
 }
 
 .plant {
     padding: 0.2em;
 }
+/* 
+.plant img {
+    height: 200px;
+} */
 
 .tools {
-    flex: 0 150px;
+    flex: 0 100px;
     display: flex;
     flex-direction: column;
     align-items: end;
     justify-content: end;
     padding: 1.5em;
+    padding-left: 0em;
     /* justify-self: right; */
 }
 
@@ -41,4 +47,14 @@
     width: 70px;
     padding: 0.6em;
     margin-top: 0.6em;
+}
+
+.planting-form {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
 }
