@@ -56,6 +56,25 @@ export function Login({userName, authState, onAuthChange}) {
                 }}
             />
         )}
+
+        {/* {authState === AuthState.Authenticated && (
+            <Authenticated 
+                userName={userName}
+                greenhouseID={localStorage.getItem('greenhouseID')}
+                onLogout={() => {
+                    onAuthChange(userName, greenhouseID, AuthState.Unauthenticated);
+                }}
+            />
+        )}
+        {authState === AuthState.Unauthenticated && (
+            <Unauthenticated
+                userName={userName}
+                onLogin={(loginUsername, greenhouseID) => {
+                    onAuthChange(loginUsername, greenhouseID, AuthState.Authenticated);
+                }}
+            />
+        )} */}
+
         {/* <form> */}
             {/* <div className="input-group mb-3"> */}
                 {/* <input className="form-control" type="text" onChange={idChange} placeholder="Greenhouse ID" /> */}

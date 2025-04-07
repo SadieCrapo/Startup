@@ -13,6 +13,7 @@ export function Unauthenticated(props) {
         localStorage.setItem('greenhouseID', greenhouseID);
         // setGreenhouseID(greenhouseID);
         props.onLogin(userName);
+        // props.onLogin(userName, greenhouseID);
         navigate('/greenhouse');
     }
 
@@ -22,6 +23,7 @@ export function Unauthenticated(props) {
         localStorage.setItem('greenhouseID', greenhouseID);
         // setGreenhouseID(greenhouseID);
         props.onLogin(userName);
+        // props.onLogin(userName, greenhouseID);
         navigate('/greenhouse');
     }
 
