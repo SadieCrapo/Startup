@@ -4,6 +4,13 @@
     /* justify-content: right; */
 }
 
+.inactive-parent {
+    display: flex;
+    flex-direction: row;
+    align-content: end;
+    flex: 1;
+}
+
 .shelves {
     flex: 1 200px;
     display: grid;
