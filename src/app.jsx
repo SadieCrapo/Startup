@@ -67,7 +67,10 @@ export default function App() {
                         </menu>
                     </nav>
                     <div className="logo">
-                        <span onClick={dropdown} className="dropbtn" >LOGO</span>
+                        <span onClick={dropdown} className="dropbtn" >
+                            {/* LOGO */}
+                            <img src="./images/Plantr-Logo-White.png" height="80" />
+                        </span>
                     </div>
                     <div className="welcome-user">
                         {greenhouseID && <span>Welcome to {greenhouseID}!</span> || <span>Welcome!</span>}
