@@ -19,6 +19,31 @@ export default function App() {
 
     const [plants, setPlants] = React.useState([]);
 
+    const [list, setList] = React.useState([]);
+
+    const [plantInventory, setPlantInventory] = React.useState(() => {
+        return {
+            daisy: Number(localStorage.getItem('daisy')) || 0,
+            monstera: Number(localStorage.getItem('monstera')) || 0,
+            laceleaf: Number(localStorage.getItem('laceleaf')) || 0,
+        };
+    });
+
+    const [potInventory, setPotInventory] = React.useState(() => {
+        return {
+            terracotta: Number(localStorage.getItem('terracotta')) || 0,
+            marble: Number(localStorage.getItem('marble')) || 0,
+            hanging: Number(localStorage.getItem('hanging')) || 0,
+        };
+    });
+
+    const [foodInventory, setFoodInventory] = React.useState(() => {
+        return {
+            food: Number(localStorage.getItem('food')) || 0,
+            water: Number(localStorage.getItem('water')) || 0,
+        };
+    });
+
     function dropdown() {
         document.getElementById("menuDropdown").classList.toggle("show");
         localStorage.setItem('test', test);
@@ -56,7 +81,9 @@ export default function App() {
                                 userName={userName}
                                 authState={authState}
                                 onAuthChange={(userName, authState) => {
+                                // onAuthChange={(userName, greenhouseID, authState) => {
                                     setAuthState(authState);
+                                    // setGreenhouseID(greenhouseID);
                                     setUserName(userName);
                                 }}
                             />
@@ -72,8 +99,59 @@ export default function App() {
                             />
                         }
                     />
-                    <Route path='/field-guide' element={<Field_Guide />} />
-                    <Route path='/backpack' element={<Backpack />} />
+                    {/* <Route path='/field-guide' element={<Field_Guide />} /> */}
+                    <Route
+                        path='/field-guide'
+                        element={
+                            <Field_Guide
+                                list={list}
+                                addTask={(task) => {
+                                    // list.push(task);
+                                    // setList(list);
+                                    setList([...list, task]);
+                                }}
+                                plantInventory={plantInventory}
+                                potInventory={potInventory}
+                                foodInventory={foodInventory}
+
+                                increaseInventory={(plant, pot) => {
+                                    // onAuthChange={(userName, greenhouseID, authState) => {
+                                        // setAuthState(authState);
+                                        // setGreenhouseID(greenhouseID);
+                                        // setUserName(userName);
+                                        setPlantInventory(prev => {
+                                            return {
+                                                ...prev,
+                                                [plant]: (prev[plant] || 0) + 1
+                                            };
+                                        });
+                                        setPotInventory(prev => {
+                                            return {
+                                                ...prev,
+                                                [pot]: (prev[pot] || 0) + 1
+                                            };
+                                        });
+                                        setFoodInventory(prev => {
+                                            return {
+                                                ...prev,
+                                                food: (prev.food || 0) + 1,
+                                                water: (prev.water || 0) + 1,
+                                            }
+                                        })
+                                    }}
+                            />
+                        }
+                    />
+                    <Route
+                        path='/backpack'
+                        element={
+                            <Backpack
+                                plantInventory={plantInventory}
+                                potInventory={potInventory}
+                                foodInventory={foodInventory}
+                            />
+                        }
+                    />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
 
