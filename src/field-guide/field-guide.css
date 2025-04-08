@@ -33,3 +33,7 @@
 .list-item-text {
     padding: 1em;
 }
+
+.completed-task {
+    text-decoration: line-through;
+}

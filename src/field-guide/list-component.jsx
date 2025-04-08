@@ -27,8 +27,9 @@ export const ListComponent = ({ listItem, increaseInventory }) => {
                     onChange={() => onCheck(listItem)}
                     // onChange={() => onToggle(listItem)}
                 />
-                <span className="list-item-text">{listItem.text}</span>
+                <span className={listItem.completed ? "completed-task list-item-text" : "list-item-text"}>{listItem.text}</span>
                 <br />
+                {listItem.completed && <span>Completed by {listItem.completedUser}</span>}
                 <span></span>
             </p>
             {/* <img src={plant.imageUrl} alt="A plant growing in a pot" /> */}
