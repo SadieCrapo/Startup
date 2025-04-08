@@ -20,15 +20,15 @@ export function Backpack({ plantInventory, potInventory, foodInventory }) {
                     <p>Monstera x{plantInventory.monstera}</p>
                 </div>
                 <div className="item">
-                    <img src="./images/terracotta-pot.png" height="200" alt="A terracotta pot" />
+                    <img src="./images/terracotta/terracotta-pot.png" height="200" alt="A terracotta pot" />
                     <p>Terracotta x{potInventory.terracotta}</p>
                 </div>
                 <div className="item">
-                    <img src="./images/placeholder.png" height="200" alt="A hanging planter" />
+                    <img src="./images/hanging/hanging-pot.png" height="200" alt="A hanging planter" />
                     <p>Hanging x{potInventory.hanging}</p>
                 </div>
                 <div className="item">
-                    <img src="./images/placeholder.png" height="200" alt="A marble pot" />
+                    <img src="./images/marble/marble-pot.png" height="200" alt="A marble pot" />
                     <p>Marble x{potInventory.marble}</p>
                 </div>
                 <div className="item">

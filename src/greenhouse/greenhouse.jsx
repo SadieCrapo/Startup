@@ -1,6 +1,5 @@
 import React from 'react';
 import './greenhouse.css';
-import './plant-component';
 import './plant';
 import { PlantingState } from './plantingState';
 import { PlantingActive } from './planting-active';
