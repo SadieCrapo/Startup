@@ -3,12 +3,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Login } from './login/login';
 import { Backpack } from './backpack/backpack';
 import { Field_Guide } from './field-guide/field-guide';
 import { Greenhouse } from './greenhouse/greenhouse';
 import { AuthState } from './login/authState';
 import { PlantingState } from './greenhouse/plantingState';
+import { ListItem } from './field-guide/list-item';
 
 export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || null);
@@ -51,6 +53,18 @@ export default function App() {
         localStorage.setItem('test', test);
         setTest("userName");
     }
+
+    useEffect(() => {
+        setTimeout(() => {
+            var groceries = new ListItem("grocery shopping", true, "mom");
+            var laundry = new ListItem("wash laundry");
+            var vacuum = new ListItem("vacuum bedroom");
+
+            const fakeTodoList = [groceries, laundry, vacuum];
+            setList(fakeTodoList);
+            console.log(fakeTodoList);
+        }, 1000);
+      }, []);
 
     return (
         <BrowserRouter>
