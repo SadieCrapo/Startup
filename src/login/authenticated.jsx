@@ -4,7 +4,7 @@ export function Authenticated(props) {
 
     function logout() {
         localStorage.removeItem('userName');
-        // localStorage.removeItem('greenhouseID');
+        localStorage.removeItem('greenhouseID');
         props.onLogout();
     }
 
