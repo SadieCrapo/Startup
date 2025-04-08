@@ -39,30 +39,61 @@ export function PlantingActive({plantInventory, potInventory, decreaseInventoryF
         <div className="active-parent">
             <form className="planting-form" onSubmit={createNewPlant}>
                 <div className="plant-list column">
-                    <input type="radio" id="daisy" name="plant-type" value="daisy" onChange={plantTypeChange} />
-                    <label>Daisy</label>
+                    {/* <span className="row"> */}
+                        {/* <input type="radio" id="daisy" name="plant-type" value="daisy" onChange={plantTypeChange} /> */}
+                        <label>
+                            <input className="planting-form-input" type="radio" id="daisy" name="plant-type" value="daisy" onChange={plantTypeChange} />
+                            Daisy
+                        </label>
+                    {/* </span> */}
+                    {/* <span className="row">
+                        <input type="radio" id="daisy" name="plant-type" value="daisy" onChange={plantTypeChange} />
+                        <label>Daisy</label>
+                    </span> */}
                     {/* <br /> */}
-                    <input type="radio" id="monstera" name="plant-type" value="monstera" onChange={plantTypeChange} />
-                    <label>Monstera</label>
+                    {/* <span className="row"> */}
+                        {/* <input type="radio" id="monstera" name="plant-type" value="monstera" onChange={plantTypeChange} /> */}
+                        <label>
+                            <input className="planting-form-input" type="radio" id="monstera" name="plant-type" value="monstera" onChange={plantTypeChange} />
+                            Monstera
+                        </label>
+                    {/* </span> */}
                     {/* <br /> */}
-                    <input type="radio" id="laceleaf" name="plant-type" value="laceleaf" onChange={plantTypeChange} />
-                    <label>Laceleaf</label>
+                    {/* <span className="row"> */}
+                        {/* <input type="radio" id="laceleaf" name="plant-type" value="laceleaf" onChange={plantTypeChange} /> */}
+                        <label>
+                            <input className="planting-form-input" type="radio" id="laceleaf" name="plant-type" value="laceleaf" onChange={plantTypeChange} />
+                            Laceleaf
+                        </label>
+                    {/* </span> */}
                 </div>
                 <div className="pot-list column">
-                    <input type="radio" id="terracotta" name="pot-type" value="terracotta" onChange={potTypeChange} />
-                    <label>Terracotta</label>
+                    {/* <span className="row"> */}
+                        {/* <input type="radio" id="terracotta" name="pot-type" value="terracotta" onChange={potTypeChange} /> */}
+                        <label>
+                            <input className="planting-form-input" type="radio" id="terracotta" name="pot-type" value="terracotta" onChange={potTypeChange} />
+                            Terracotta
+                        </label>
+                    {/* </span> */}
                     {/* <br /> */}
-                    <input type="radio" id="marble" name="pot-type" value="marble" onChange={potTypeChange} />
-                    <label>Marble</label>
+                    {/* <span className="row"> */}
+                        {/* <input type="radio" id="marble" name="pot-type" value="marble" onChange={potTypeChange} /> */}
+                        <label>
+                            <input className="planting-form-input" type="radio" id="marble" name="pot-type" value="marble" onChange={potTypeChange} />
+                            Marble
+                        </label>
+                    {/* </span> */}
                     {/* <br /> */}
-                    <input type="radio" id="hanging" name="pot-type" value="hanging" onChange={potTypeChange} />
-                    <label>Hanging</label>
+                    {/* <span className="row"> */}
+                        {/* <input type="radio" id="hanging" name="pot-type" value="hanging" onChange={potTypeChange} /> */}
+                        <label>
+                            <input className="planting-form-input" type="radio" id="hanging" name="pot-type" value="hanging" onChange={potTypeChange} />
+                            Hanging
+                        </label>
+                    {/* </span> */}
                 </div>
                 <div className="preview column">
-                    {plantType}
-                    <br />
-                    {potType}
-                    <img src={`./images/${potType}/${plantType}.png`}
+                    <img className="preview-image" src={`./images/${potType}/${plantType}.png`}
                         onError={(e) => {
                         e.target.src = "./images/placeholder.png";
                         }}
@@ -71,7 +102,7 @@ export function PlantingActive({plantInventory, potInventory, decreaseInventoryF
                     />
                     {/* <img src="./images/terracotta-pot.png" /> */}
                     {/* <img src="./images/" + potType + "/" + plantType + ".png" */}
-                    <input type="submit" />
+                    <input className="btn action" type="submit" />
                 </div>
             </form>
         </div>

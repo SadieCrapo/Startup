@@ -11,6 +11,13 @@
     flex: 1;
 }
 
+.active-parent {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    margin: 2em;
+}
+
 .shelves {
     flex: 1 200px;
     display: grid;
@@ -52,9 +59,25 @@
 .planting-form {
     display: flex;
     flex-direction: row;
+    width: 100%;
+    font-size: 20px;
+}
+
+.planting-form-input {
+    margin: 0.4em;
+}
+
+.preview-image {
+    padding-bottom: 0.4em;
+}
+
+.label {
+    padding: 0.2em;
 }
 
 .column {
     display: flex;
     flex-direction: column;
+    flex: 0 calc(100vw / 3);
+    padding: 1em;
 }
