@@ -4,6 +4,7 @@ import './list-item';
 export const ListComponent = ({ listItem, increaseInventory }) => {
     function onCheck(listItem) {
         listItem.toggleComplete();
+        updateTask(listItem);
         generateRandomKeys();
     }
 
@@ -15,6 +16,20 @@ export const ListComponent = ({ listItem, increaseInventory }) => {
         var pot = potTypes[Math.floor(Math.random() * plantTypes.length)];
 
         increaseInventory(plant, pot);
+    }
+
+    async function updateTask(newTask) {
+        // const date = new Date().toLocaleDateString();
+        // const newScore = { name: userName, score: score, date: date };
+
+        await fetch('/tasks', {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(newTask),
+        });
+
+        // Let other players know the game has concluded
+        // GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
     }
       
     return (

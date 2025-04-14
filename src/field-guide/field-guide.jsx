@@ -7,9 +7,20 @@ import { ListComponent } from './list-component';
 // import './list-component';
 // import './list-item';
 
-export function Field_Guide({list, addTask, increaseInventory}) {
-// export function Field_Guide() {
+export function Field_Guide({ taskList, addTask, increaseInventory }) {
+    // export function Field_Guide() {
+    const [list, setList] = React.useState([]);
     const [task, setTask] = React.useState("");
+
+    // Demonstrates calling a service asynchronously so that
+    // React can properly update state objects with the results.
+    React.useEffect(() => {
+      fetch('/tasks')
+        .then((response) => response.json())
+        .then((list) => {
+          setList(list);
+        });
+    }, []);
 
     const handleChange = (event) => {
         setTask(event.target.value);
@@ -17,15 +28,27 @@ export function Field_Guide({list, addTask, increaseInventory}) {
 
     const handleSubmit = (event) => {
         event.preventDefault(); // Prevent page reload
-        console.log("Submitted message:", task);
+        // console.log("Submitted message:", task);
 
         const newTask = new ListItem(task);
-        // list.push(newTask);
-        // setList(list);
-        addTask(newTask)
+        // addTask(newTask)
+        saveTask(newTask);
         setTask("");
-        // localStorage.setItem('list', list);
     };
+
+    async function saveTask(newTask) {
+        // const date = new Date().toLocaleDateString();
+        // const newScore = { name: userName, score: score, date: date };
+
+        await fetch('/tasks', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(newTask),
+        });
+
+        // Let other players know the game has concluded
+        // GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
+    }
 
     return (
         // <main className="container-fluid bg-secondary text-center">
@@ -34,44 +57,11 @@ export function Field_Guide({list, addTask, increaseInventory}) {
                 {list.map((listItem) => (
                     <ListComponent listItem={listItem} increaseInventory={increaseInventory} />
                 ))}
-
-                {/* <div className="list-item">
-                    <p>
-                        <input type="checkbox" value="checkbox1" />
-                        Fold Laundry
-                    </p>
-                </div>
-
-                <div className="list-item">
-                    <p>
-                        <input type="checkbox" value="checkbox1" />
-                        Grocery Shopping
-                    </p>
-                </div>
-
-                <div className="list-item">
-                    <p>
-                        <input type="checkbox" value="checkbox1" checked />
-                        <s>Study</s>
-                        <br />
-                        Completed by MysteryUser
-                    </p>
-                </div>
-
-                <div className="list-item">
-                    <p>
-                        <input type="checkbox" value="checkbox1" checked />
-                        <s>Wash Dishes</s>
-                        <br />
-                        Completed by SecretUser16
-                    </p>
-                </div> */}
             </div>
 
             <div className="tools">
                 <h3>New Task</h3>
-                
-                {/* <form action="/action_page.php"> */}
+
                 <form onSubmit={handleSubmit} onChange={handleChange}>
                     <textarea
                         name="task"
@@ -79,20 +69,10 @@ export function Field_Guide({list, addTask, increaseInventory}) {
                         cols="30"
                         value={task}
                         onChange={handleChange}
-                        // onChange={setTask(event.target.value)} // Update state on input
                     />
                     <br />
                     <input type="submit" className="btn action" />
                 </form>
-
-                {/* <div>{list}</div> */}
-
-                {/* <textarea name="message" rows="21" cols="30"></textarea>
-                <br></br>
-                <input type="submit" className="btn action" /> */}
-                {/* </form> */}
-
-                {/* <button className="action-button btn action">New Task</button> */}
             </div>
         </main>
     );
