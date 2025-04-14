@@ -5,6 +5,7 @@ const uuid = require('uuid');
 const app = express();
 
 const authCookieName = 'token';
+const greenhouseCookieName = 'greenhouse';
 
 let users = []
 let greenhouses = []
@@ -75,6 +76,36 @@ const verifyAuth = async (req, res, next) => {
     }
 };
 
+// GetScores
+// apiRouter.get('/scores', verifyAuth, (_req, res) => {
+//   res.send(scores);
+// });
+
+// GetTasks
+apiRouter.get('/tasks', verifyAuth, (_req, res) => {
+    res.send(tasks[_req.cookies[greenhouseCookieName]]);
+})
+
+// SubmitScore
+// apiRouter.post('/score', verifyAuth, (req, res) => {
+//   scores = updateScores(req.body);
+//   res.send(scores);
+// });
+
+// NewTask
+apiRouter.post('/tasks', verifyAuth, (req, res) => {
+    var greenhouseID = req.cookies[greenhouseCookieName];
+    tasks[greenhouseID] = updateTasks(req.body, greenhouseID);
+    res.send(tasks[greenhouseID]);
+})
+
+//CompleteTask
+apiRouter.put('/tasks', verifyAuth, (req, res) => {
+    var greenhouseID = req.cookies[greenhouseCookieName];
+    tasks[greenhouseID] = updateTasks(req.body, greenhouseID);
+    res.send(tasks[greenhouseID]);
+})
+
 // Default error handler
 app.use(function (err, req, res, next) {
     res.status(500).send({ type: err.name, message: err.message });
@@ -84,6 +115,39 @@ app.use(function (err, req, res, next) {
 app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });
 });
+
+// updateScores considers a new score for inclusion in the high scores.
+// function updateScores(newScore) {
+//     let found = false;
+//     for (const [i, prevScore] of scores.entries()) {
+//       if (newScore.score > prevScore.score) {
+//         scores.splice(i, 0, newScore);
+//         found = true;
+//         break;
+//       }
+//     }
+
+//     if (!found) {
+//       scores.push(newScore);
+//     }
+
+//     if (scores.length > 10) {
+//       scores.length = 10;
+//     }
+
+//     return scores;
+//   }
+
+function updateTasks(newTask, greenhouseID) {
+    taskList = tasks[greenhouseID];
+    let index = taskList.findIndex(task => task.text === newTask.text);
+    if (index !== -1) {
+        taskList[index] = newTask;
+    } else {
+        taskList.push(newTask);
+    }
+    return taskList;
+}
 
 async function createUser(userName, password) {
     const passwordHash = await bcrypt.hash(password, 10);
@@ -107,6 +171,22 @@ async function findUser(field, value) {
 // setAuthCookie in the HTTP response
 function setAuthCookie(res, authToken) {
     res.cookie(authCookieName, authToken, {
+        secure: true,
+        httpOnly: true,
+        sameSite: 'strict',
+    });
+}
+
+function setGreenhouseCookie(res, greenhouse) {
+    if (!greenhouses.find((g) => g === greenhouse)) {
+        greenhouses.push(greenhouse);
+        tasks[greenhouse] = [];
+        plants[greenhouse] = [];
+        plantInventory[greenhouse] = { 'monstera': 0, 'daisy': 0, 'laceleaf': 0 };
+        potInventory[greenhouse] = { 'terracotta': 0, 'marble': 0, 'hanging': 0 };
+        foodInventory[greenhouse] = { 'food': 0, 'water': 0 };
+    }
+    res.cookie(greenhouseCookieName, greenhouse, {
         secure: true,
         httpOnly: true,
         sameSite: 'strict',
