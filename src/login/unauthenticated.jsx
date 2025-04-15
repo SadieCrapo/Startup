@@ -2,28 +2,48 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function Unauthenticated(props) {
-    const [greenhouseID,  setID] = React.useState(props.greenhouseID);
-    const [userName, setUserName] = React.useState(props.userName);
+    const [greenhouseID, setID] = React.useState(props.greenhouseID);
+    // const [userName, setUserName] = React.useState(props.userName);
     const [password, setPassword] = React.useState('');
     const navigate = useNavigate();
 
+    async function loginOrCreate(endpoint) {
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            body: JSON.stringify({ userName: userName, password: password, greenhouse: greenhouseID }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        });
+        if (response?.status === 200) {
+            localStorage.setItem('userName', userName);
+            localStorage.setItem('greenhouseID', greenhouseID);
+            props.onLogin(userName);
+        } else {
+            const body = await response.json();
+            setDisplayError(`⚠ Error: ${body.msg}`);
+        }
+    }
+
     function loginUser() {
-        localStorage.setItem('userName', userName);
-        // setUserName(userName);
-        localStorage.setItem('greenhouseID', greenhouseID);
-        // setGreenhouseID(greenhouseID);
-        props.onLogin(userName);
-        // props.onLogin(userName, greenhouseID);
+        loginOrCreate('/api/session');
+        // localStorage.setItem('userName', userName);
+        // // setUserName(userName);
+        // localStorage.setItem('greenhouseID', greenhouseID);
+        // // setGreenhouseID(greenhouseID);
+        // props.onLogin(userName);
+        // // props.onLogin(userName, greenhouseID);
         navigate('/greenhouse');
     }
 
     function createUser() {
-        localStorage.setItem('userName', userName);
-        // setUserName(userName);
-        localStorage.setItem('greenhouseID', greenhouseID);
-        // setGreenhouseID(greenhouseID);
-        props.onLogin(userName);
-        // props.onLogin(userName, greenhouseID);
+        loginOrCreate('/api/user');
+        // localStorage.setItem('userName', userName);
+        // // setUserName(userName);
+        // localStorage.setItem('greenhouseID', greenhouseID);
+        // // setGreenhouseID(greenhouseID);
+        // props.onLogin(userName);
+        // // props.onLogin(userName, greenhouseID);
         navigate('/greenhouse');
     }
 
@@ -41,7 +61,7 @@ export function Unauthenticated(props) {
 
     return (
 
-    // <main className='login-main text-center'>
+        // <main className='login-main text-center'>
         // <h1 className="welcome-message">Welcome to Plantr!</h1>
         <form>
             <div className="input-group mb-3">
