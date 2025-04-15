@@ -1,7 +1,35 @@
 import React from 'react';
 import './list-item';
 
-export const ListComponent = ({ listItem, increaseInventory }) => {
+export const ListComponent = ({ listItem, oldIncreaseInventory }) => {
+    const [plantInventory, setPlantInventory] = React.useState({});
+    const [potInventory, setPotInventory] = React.useState({});
+    const [foodInventory, setFoodInventory] = React.useState({});
+
+    React.useEffect(() => {
+        fetch('/api/inventory/plants')
+        .then((response) => response.json())
+        .then((plantInventory) => {
+            setPlantInventory(plantInventory);
+        });
+    });
+
+    React.useEffect(() => {
+        fetch('/api/inventory/pots')
+        .then((response) => response.json())
+        .then((potInventory) => {
+            setPotInventory(potInventory);
+        });
+    });
+
+    React.useEffect(() => {
+        fetch('/api/inventory/food')
+        .then((response) => response.json())
+        .then((foodInventory) => {
+            setFoodInventory(foodInventory);
+        });
+    });
+
     function onCheck(listItem) {
         listItem.toggleComplete();
         updateTask(listItem);
@@ -22,7 +50,7 @@ export const ListComponent = ({ listItem, increaseInventory }) => {
         // const date = new Date().toLocaleDateString();
         // const newScore = { name: userName, score: score, date: date };
 
-        await fetch('/tasks', {
+        await fetch('/api/tasks', {
             method: 'PUT',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(newTask),
@@ -30,6 +58,32 @@ export const ListComponent = ({ listItem, increaseInventory }) => {
 
         // Let other players know the game has concluded
         // GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
+    }
+
+    async function increaseInventory(plantType, potType) {
+        const plantQuantity = plantInventory[plantType] + 1;
+        const potQuantity = potInventory[potType] + 1;
+
+        foodInventory["water"] = foodInventory["water"] + 1 || 1;
+        foodInventory["food"] = foodInventory["food"] + 1 || 1;
+
+        await fetch('/api/inventory/plants', {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ plantType, plantQuantity }),
+        });
+
+        await fetch('/api/inventory/pots', {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ potType, potQuantity }),
+        });
+
+        await fetch('/api/inventory/food', {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(foodInventory),
+        });
     }
       
     return (

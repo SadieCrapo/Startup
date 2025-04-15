@@ -15,12 +15,12 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
     // Demonstrates calling a service asynchronously so that
     // React can properly update state objects with the results.
     React.useEffect(() => {
-      fetch('/tasks')
+      fetch('/api/tasks')
         .then((response) => response.json())
         .then((list) => {
           setList(list);
         });
-    }, []);
+    });
 
     const handleChange = (event) => {
         setTask(event.target.value);
@@ -40,7 +40,7 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
         // const date = new Date().toLocaleDateString();
         // const newScore = { name: userName, score: score, date: date };
 
-        await fetch('/tasks', {
+        await fetch('/api/tasks', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(newTask),
