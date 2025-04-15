@@ -1,5 +1,6 @@
 import React from 'react';
 import './list-item';
+import { ListItem } from './list-item';
 
 export const ListComponent = ({ listItem, oldIncreaseInventory }) => {
     const [plantInventory, setPlantInventory] = React.useState({});
@@ -30,7 +31,8 @@ export const ListComponent = ({ listItem, oldIncreaseInventory }) => {
         });
     }, []);
 
-    function onCheck(listItem) {
+    function onCheck(data) {
+        listItem = new ListItem(data);
         listItem.toggleComplete();
         updateTask(listItem);
         generateRandomKeys();
