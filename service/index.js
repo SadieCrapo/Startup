@@ -106,6 +106,25 @@ apiRouter.put('/tasks', verifyAuth, (req, res) => {
     res.send(tasks[greenhouseID]);
 })
 
+// GetPlants
+apiRouter.get('/plants', verifyAuth, (_req, res) => {
+    res.send(plants[_req.cookies[greenhouseCookieName]]);
+})
+
+// NewPlant
+apiRouter.post('/plants', verifyAuth, (req, res) => {
+    var greenhouseID = req.cookies[greenhouseCookieName];
+    plants[greenhouseID] = updatePlants(req.body, greenhouseID);
+    res.send(plants[greenhouseID])
+})
+
+// GrowPlants
+apiRouter.put('/plants', verifyAuth, (req, res) => {
+    var greenhouseID = req.cookies[greenhouseCookieName];
+    plants[greenhouseID] = req.body;
+    res.send(plants[greenhouseID]);
+})
+
 // Default error handler
 app.use(function (err, req, res, next) {
     res.status(500).send({ type: err.name, message: err.message });
@@ -147,6 +166,12 @@ function updateTasks(newTask, greenhouseID) {
         taskList.push(newTask);
     }
     return taskList;
+}
+
+function updatePlants(newPlant, greenhouseID) {
+    plantList = plants[greenhouseID];
+    plantList.push(newPlant);
+    return plantList;
 }
 
 async function createUser(userName, password) {
