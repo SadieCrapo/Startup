@@ -20,7 +20,7 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
         .then((list) => {
           setList(list);
         });
-    });
+    }, []);
 
     const handleChange = (event) => {
         setTask(event.target.value);

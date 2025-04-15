@@ -12,7 +12,7 @@ export const ListComponent = ({ listItem, oldIncreaseInventory }) => {
         .then((plantInventory) => {
             setPlantInventory(plantInventory);
         });
-    });
+    }, []);
 
     React.useEffect(() => {
         fetch('/api/inventory/pots')
@@ -20,7 +20,7 @@ export const ListComponent = ({ listItem, oldIncreaseInventory }) => {
         .then((potInventory) => {
             setPotInventory(potInventory);
         });
-    });
+    }, []);
 
     React.useEffect(() => {
         fetch('/api/inventory/food')
@@ -28,7 +28,7 @@ export const ListComponent = ({ listItem, oldIncreaseInventory }) => {
         .then((foodInventory) => {
             setFoodInventory(foodInventory);
         });
-    });
+    }, []);
 
     function onCheck(listItem) {
         listItem.toggleComplete();

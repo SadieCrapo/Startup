@@ -12,7 +12,7 @@ export function Backpack({ oldPlantInventory, oldPotInventory, oldFoodInventory 
         .then((plantInventory) => {
             setPlantInventory(plantInventory);
         });
-    });
+    }, []);
 
     React.useEffect(() => {
         fetch('/api/inventory/pots')
@@ -20,7 +20,7 @@ export function Backpack({ oldPlantInventory, oldPotInventory, oldFoodInventory 
         .then((potInventory) => {
             setPotInventory(potInventory);
         });
-    });
+    }, []);
 
     React.useEffect(() => {
         fetch('/api/inventory/food')
@@ -28,7 +28,7 @@ export function Backpack({ oldPlantInventory, oldPotInventory, oldFoodInventory 
         .then((foodInventory) => {
             setFoodInventory(foodInventory);
         });
-    });
+    }, []);
 
     return (
         // <main className="container-fluid bg-secondary text-center">

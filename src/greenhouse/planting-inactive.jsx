@@ -12,7 +12,7 @@ export function PlantingInactive({plantList, oldFoodInventory, decreaseInventory
         .then((plants) => {
           setPlants(plants);
         });
-    });
+    }, []);
 
     React.useEffect(() => {
         fetch('/api/inventory/food')
@@ -20,7 +20,7 @@ export function PlantingInactive({plantList, oldFoodInventory, decreaseInventory
         .then((foodInventory) => {
             setFoodInventory(foodInventory);
         });
-    });
+    }, []);
 
     const PlantComponent = ({ plant }) => {
         return (

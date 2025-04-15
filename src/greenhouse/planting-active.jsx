@@ -17,7 +17,7 @@ export function PlantingActive({oldPlantInventory, oldPotInventory, decreaseInve
         .then((plantInventory) => {
           setPlantInventory(plantInventory);
         });
-    });
+    }, []);
 
     React.useEffect(() => {
         fetch('/api/inventory/pots')
@@ -25,7 +25,7 @@ export function PlantingActive({oldPlantInventory, oldPotInventory, decreaseInve
             .then((potInventory) => {
                 setPotInventory(potInventory);
             });
-    });
+    }, []);
 
     function plantTypeChange(e) {
         setPlantType(e.target.value)
