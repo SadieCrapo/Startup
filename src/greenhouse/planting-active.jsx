@@ -3,9 +3,29 @@ import { Daisy } from "./plant";
 import { Monstera } from "./plant";
 import { Laceleaf } from "./plant";
 
-export function PlantingActive({plantInventory, potInventory, decreaseInventoryFromPlanting, addPlant, setPlantingInactive}) {
+export function PlantingActive({oldPlantInventory, oldPotInventory, decreaseInventoryFromPlanting, addNewPlant, setPlantingInactive}) {
     const [plantType, setPlantType] = React.useState("daisy");
     const [potType, setPotType] = React.useState("terracotta");
+    const [plantInventory, setPlantInventory] = React.useState({});
+    const [potInventory, setPotInventory] = React.useState({});
+
+    // Demonstrates calling a service asynchronously so that
+    // React can properly update state objects with the results.
+    React.useEffect(() => {
+      fetch('/api/inventory/plants')
+        .then((response) => response.json())
+        .then((plantInventory) => {
+          setPlantInventory(plantInventory);
+        });
+    });
+
+    React.useEffect(() => {
+        fetch('/api/inventory/pots')
+            .then((response) => response.json())
+            .then((potInventory) => {
+                setPotInventory(potInventory);
+            });
+    });
 
     function plantTypeChange(e) {
         setPlantType(e.target.value)
@@ -18,7 +38,7 @@ export function PlantingActive({plantInventory, potInventory, decreaseInventoryF
     function createNewPlant(e) {
         e.preventDefault();
         if (plantInventory[plantType] > 0 && potInventory[potType] > 0) {
-            decreaseInventoryFromPlanting(plantType, potType);
+            decreaseInventory(plantType, potType);
             var plant;
             switch (plantType) {
                 case "daisy": plant = new Daisy(potType);
@@ -28,11 +48,44 @@ export function PlantingActive({plantInventory, potInventory, decreaseInventoryF
                 case "laceleaf": plant = new Laceleaf(potType);
                 break;
             }
-            console.log(plant);
+            // console.log(plant);
             addPlant(plant);
         }
 
         setPlantingInactive();
+    }
+
+    async function decreaseInventory(plantType, potType) {
+        const plantQuantity = plantInventory[plantType]-1;
+        const potQuantity = potInventory[potType]-1;
+
+        await fetch('/api/inventory/plants', {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' },
+            // body: JSON.stringify(plantData),
+            body: JSON.stringify({ plantType, plantQuantity }),
+        });
+
+        await fetch('/api/inventory/pots', {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' },
+            // body: JSON.stringify(potData),
+            body: JSON.stringify({ potType, potQuantity }),
+        });
+    }
+
+    async function addPlant(newPlant) {
+        // const date = new Date().toLocaleDateString();
+        // const newScore = { name: userName, score: score, date: date };
+
+        await fetch('/api/plants', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(newPlant),
+        });
+
+        // Let other players know the game has concluded
+        // GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
     }
 
     return (
