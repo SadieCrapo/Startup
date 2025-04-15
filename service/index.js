@@ -125,6 +125,42 @@ apiRouter.put('/plants', verifyAuth, (req, res) => {
     res.send(plants[greenhouseID]);
 })
 
+// GetPlantInventory
+apiRouter.get('/inventory/plants', verifyAuth, (_req, res) => {
+    res.send(plantInventory[_req.cookies[greenhouseCookieName]]);
+})
+
+// UpdatePlantInventory
+apiRouter.put('/inventory/plants', verifyAuth, (req, res) => {
+    var greenhouseID = req.cookies[greenhouseCookieName];
+    plantInventory[greenhouseID][req.body.plantType] = req.body.plantQuantity;
+    res.send(plantInventory[greenhouseID]);
+})
+
+// GetPotInventory
+apiRouter.get('/inventory/pots', verifyAuth, (_req, res) => {
+    res.send(potInventory[_req.cookies[greenhouseCookieName]]);
+})
+
+// UpdatePotInventory
+apiRouter.put('/inventory/pots', verifyAuth, (req, res) => {
+    var greenhouseID = req.cookies[greenhouseCookieName];
+    potInventory[greenhouseID][req.body.potType] = req.body.potQuantity;
+    res.send(potInventory[greenhouseID]);
+})
+
+// GetFoodInventory
+apiRouter.get('/inventory/food', verifyAuth, (_req, res) => {
+    res.send(foodInventory[_req.cookies[greenhouseCookieName]]);
+})
+
+// UpdateFoodInventory
+apiRouter.put('/inventory/food', verifyAuth, (req, res) => {
+    var greenhouseID = req.cookies[greenhouseCookieName];
+    foodInventory[greenhouseID][req.body.foodType] = req.body.foodQuantity;
+    res.send(foodInventory[greenhouseID]);
+})
+
 // Default error handler
 app.use(function (err, req, res, next) {
     res.status(500).send({ type: err.name, message: err.message });
