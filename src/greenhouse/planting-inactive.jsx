@@ -1,28 +1,43 @@
 import React from "react";
 
-export function PlantingInactive({plantList, oldFoodInventory, decreaseInventoryFromFeeding, setPlantingActive}) {
-    // const [food, setFood] = React.useState(localStorage.getItem('food') || 0);
-    // const [water, setWater] = React.useState(localStorage.getItem('water') || 0);
+import { Monstera } from "./plant";
+import { Daisy } from "./plant";
+import { Laceleaf } from "./plant";
+
+export function PlantingInactive({ plantList, oldFoodInventory, decreaseInventoryFromFeeding, setPlantingActive }) {
     const [plants, setPlants] = React.useState([]);
     const [foodInventory, setFoodInventory] = React.useState({});
 
+    const [quote, setQuote] = React.useState('Loading...');
+    const [quoteAuthor, setQuoteAuthor] = React.useState('unknown');
+
     React.useEffect(() => {
-      fetch('/api/plants')
-        .then((response) => response.json())
-        .then((plants) => {
-          setPlants(plants);
-        });
+        if (quoteList && quoteList.length > 0) {
+            var index = Math.floor(Math.random() * quoteList.length);
+            setQuote(quoteList[index].q);
+            setQuoteAuthor(quoteList[index].a);
+        }
+
+    }, [quoteList]);
+
+    React.useEffect(() => {
+        fetch('/api/plants')
+            .then((response) => response.json())
+            .then((plants) => {
+                setPlants(plants);
+            });
     }, []);
 
     React.useEffect(() => {
         fetch('/api/inventory/food')
-        .then((response) => response.json())
-        .then((foodInventory) => {
-            setFoodInventory(foodInventory);
-        });
+            .then((response) => response.json())
+            .then((foodInventory) => {
+                setFoodInventory(foodInventory);
+            });
     }, []);
 
     const PlantComponent = ({ plant }) => {
+        console.log(plant.URL);
         return (
             <div className="plant">
                 <img src={plant.URL}
@@ -39,8 +54,6 @@ export function PlantingInactive({plantList, oldFoodInventory, decreaseInventory
     function feedAll() {
         if (foodInventory.food > 0) {
             decreaseInventory("food");
-            // setFood(food - 1);
-            // localStorage.setItem('food', food);
             growAll();
         }
     }
@@ -48,8 +61,6 @@ export function PlantingInactive({plantList, oldFoodInventory, decreaseInventory
     function waterAll() {
         if (foodInventory.water > 0) {
             decreaseInventory("water");
-            // setWater(water - 1);
-            // localStorage.setItem('water', water);
             growAll();
         }
     }
@@ -60,15 +71,24 @@ export function PlantingInactive({plantList, oldFoodInventory, decreaseInventory
         await fetch('/api/inventory/food', {
             method: 'PUT',
             headers: { 'content-type': 'application/json' },
-            // body: JSON.stringify(plantData),
             body: JSON.stringify(foodInventory),
         });
     }
 
     function growAll() {
         for (let index = 0; index < plants.length; index++) {
-            const plant = plants[index];
+            const rawPlant = plants[index];
+            var plant;
+            switch (rawPlant.plantType) {
+                case "daisy": plant = new Daisy(rawPlant.potType, rawPlant.age, rawPlant.URL);
+                    break;
+                case "monstera": plant = new Monstera(rawPlant.potType, rawPlant.age, rawPlant.URL);
+                    break;
+                case "laceleaf": plant = new Laceleaf(rawPlant.potType, rawPlant.age, rawPlant.URL);
+                    break;
+            }
             plant.grow();
+            plants[index] = plant;
         }
         updatePlants(plants);
     }
@@ -82,19 +102,29 @@ export function PlantingInactive({plantList, oldFoodInventory, decreaseInventory
     }
 
     return (
-        // <main className='greenhouse-main'>
         <div className="inactive-parent">
-            <div className="shelves">
-                {plants.map((plant) => (
-                <PlantComponent plant={plant} />
-                ))}
+            <div className="shelf-container">
+                <div className="shelves">
+                    {plants.map((plant) => (
+                        <PlantComponent plant={plant} />
+                    ))}
+                </div>
+                <div className="quote-container">
+                    <h5 className="quote">
+                    {quote}
+                    <br />
+                    — {quoteAuthor}
+                    </h5>
+                    <div className="acknowledment">
+                    Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a>
+                    </div>
+                </div>
             </div>
             <div className="tools">
-                    <button onClick={setPlantingActive} className="action-button btn action">Plant</button>
-                    <button onClick={feedAll} className="action-button btn action">Feed</button>
-                    <button onClick={waterAll} className="action-button btn action">Water</button>
+                <button onClick={setPlantingActive} className="action-button btn action">Plant</button>
+                <button onClick={feedAll} className="action-button btn action">Feed</button>
+                <button onClick={waterAll} className="action-button btn action">Water</button>
             </div>
         </div>
-        // </main>
     );
 }

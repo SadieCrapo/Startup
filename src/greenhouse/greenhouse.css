@@ -1,7 +1,6 @@
 .greenhouse-main {
     display: flex;
     flex-direction: row;
-    /* justify-content: right; */
 }
 
 .inactive-parent {
@@ -14,6 +13,13 @@
 .active-parent {
     display: flex;
     flex-direction: row;
+    flex: 1;
+    margin: 2em;
+}
+
+.shelf-container {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     margin: 2em;
 }
@@ -31,10 +37,6 @@
 .plant {
     padding: 0.2em;
 }
-/* 
-.plant img {
-    height: 200px;
-} */
 
 .tools {
     flex: 0 100px;
@@ -44,11 +46,9 @@
     justify-content: end;
     padding: 1.5em;
     padding-left: 0em;
-    /* justify-self: right; */
 }
 
 .action-button {
-    /* background-color: lightblue; */
     border-radius: 35px;
     height: 70px;
     width: 70px;

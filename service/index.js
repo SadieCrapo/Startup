@@ -161,6 +161,14 @@ apiRouter.put('/inventory/food', verifyAuth, (req, res) => {
     res.send(foodInventory[greenhouseID]);
 })
 
+app.get('/api/quotes', async (req, res) => {
+    const response = await fetch('https://zenquotes.io/api/quotes/');
+    // console.log(response);
+    const data = await response.json();
+    // console.log(data[0]);
+    res.json(data);
+});
+
 // Default error handler
 app.use(function (err, req, res, next) {
     res.status(500).send({ type: err.name, message: err.message });

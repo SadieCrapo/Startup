@@ -1,14 +1,9 @@
-// const Pot = Object.freeze({
-//     MARBLE: 'marble',
-//     TERRACOTTA: 'terracotta',
-//     HANGING: 'hanging'
-// });
-
 class Plant {
-    constructor(type) {
-        this.potType = type;
-        this.age = 1;
-        this.URL = "./images/" + this.potType + "/sprout.png";
+    constructor(potType, plantType="", age=1, URL="") {
+        this.potType = potType;
+        this.plantType = plantType;
+        this.age = age;
+        this.URL = URL;
     }
 
     grow() {
@@ -25,9 +20,18 @@ class Plant {
 }
 
 export class Monstera extends Plant {
+    constructor(potType, age=1, URL="") {
+        super(potType, "monstera", age, URL);
+        if (this.URL == "") {
+            this.setURL();
+        }
+    }
+
     setURL() {
         var imageURL = "./images/" + this.potType;
         switch (this.age) {
+            case 1: this.URL = imageURL + "/sprout.png";
+            break;
             case 2: this.URL = imageURL + "/seedling.png";
             break;
             case 3: this.URL = imageURL + "/monstera-young.png";
@@ -39,9 +43,18 @@ export class Monstera extends Plant {
 }
 
 export class Daisy extends Plant {
+    constructor(potType, age=1, URL="") {
+        super(potType, "daisy", age, URL);
+        if (this.URL == "") {
+            this.setURL();
+        }
+    }
+
     setURL() {
         var imageURL = "./images/" + this.potType;
         switch (this.age) {
+            case 1: this.URL = imageURL + "/sprout.png";
+            break;
             case 2: this.URL = imageURL + "/seedling.png";
             break;
             case 3: this.URL = imageURL + "/daisy-young.png";
@@ -53,9 +66,18 @@ export class Daisy extends Plant {
 }
 
 export class Laceleaf extends Plant {
+    constructor(potType, age=1, URL="") {
+        super(potType, "laceleaf", age, URL);
+        if (this.URL == "") {
+            this.setURL();
+        }
+    }
+
     setURL() {
         var imageURL = "./images/" + this.potType;
         switch (this.age) {
+            case 1: this.URL = imageURL + "/sprout.png";
+            break;
             case 2: this.URL = imageURL + "/seedling.png";
             break;
             case 3: this.URL = imageURL + "/laceleaf-young.png";
@@ -65,17 +87,3 @@ export class Laceleaf extends Plant {
         }
     }
 }
-
-// export class Plant {
-//     constructor(type) {
-//         this.potType = type;
-//         // this.species = species;
-//         this.age = 1;
-//     }
-
-//     grow() {
-//         if (this.age < 4) {
-//             this.age += 1;
-//         }
-//     }
-// }
