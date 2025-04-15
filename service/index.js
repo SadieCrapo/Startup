@@ -157,7 +157,7 @@ apiRouter.get('/inventory/food', verifyAuth, (_req, res) => {
 // UpdateFoodInventory
 apiRouter.put('/inventory/food', verifyAuth, (req, res) => {
     var greenhouseID = req.cookies[greenhouseCookieName];
-    foodInventory[greenhouseID][req.body.foodType] = req.body.foodQuantity;
+    foodInventory[greenhouseID] = req.body;
     res.send(foodInventory[greenhouseID]);
 })
 
