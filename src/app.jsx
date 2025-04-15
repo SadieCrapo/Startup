@@ -13,7 +13,7 @@ import { PlantingState } from './greenhouse/plantingState';
 import { ListItem } from './field-guide/list-item';
 
 export default function App() {
-    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || null);
+    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const [greenhouseID, setGreenhouseID] = React.useState(localStorage.getItem('greenhouseID') || null);
     const [test, setTest] = React.useState(localStorage.getItem('test') || null);
 

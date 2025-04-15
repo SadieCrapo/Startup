@@ -2,8 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function Unauthenticated(props) {
-    const [greenhouseID, setID] = React.useState(props.greenhouseID);
-    // const [userName, setUserName] = React.useState(props.userName);
+    const [greenhouseID, setID] = React.useState('');
+    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const [password, setPassword] = React.useState('');
     const navigate = useNavigate();
 
