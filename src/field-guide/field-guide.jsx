@@ -55,7 +55,7 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
         <main className='field-guide-main'>
             <div className="list">
                 {list.map((listItem) => (
-                    <ListComponent listItem={listItem} increaseInventory={increaseInventory} />
+                    <ListComponent listItem={new ListItem(listItem)} increaseInventory={increaseInventory} />
                 ))}
             </div>
 

@@ -31,8 +31,8 @@ export const ListComponent = ({ listItem, oldIncreaseInventory }) => {
         });
     }, []);
 
-    function onCheck(data) {
-        listItem = new ListItem(data);
+    function onCheck(listItem) {
+        // listItem = new ListItem(data);
         listItem.toggleComplete();
         updateTask(listItem);
         generateRandomKeys();
