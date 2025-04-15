@@ -2,7 +2,7 @@ import React from 'react';
 import './list-item';
 import { ListItem } from './list-item';
 
-export const ListComponent = ({ listItem, oldIncreaseInventory }) => {
+export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrigger }) => {
     const [plantInventory, setPlantInventory] = React.useState({});
     const [potInventory, setPotInventory] = React.useState({});
     const [foodInventory, setFoodInventory] = React.useState({});
@@ -32,10 +32,13 @@ export const ListComponent = ({ listItem, oldIncreaseInventory }) => {
     }, []);
 
     function onCheck(listItem) {
-        // listItem = new ListItem(data);
-        listItem.toggleComplete();
-        updateTask(listItem);
+        // console.log('in onCheck - listItem = ', listItem);
+        // console.log(listItem instanceof ListItem);
+        const task = new ListItem(listItem.text);
+        task.toggleComplete();
+        updateTask(task);
         generateRandomKeys();
+        setTrigger(trigger + 1);
     }
 
     function generateRandomKeys() {
@@ -49,17 +52,11 @@ export const ListComponent = ({ listItem, oldIncreaseInventory }) => {
     }
 
     async function updateTask(newTask) {
-        // const date = new Date().toLocaleDateString();
-        // const newScore = { name: userName, score: score, date: date };
-
         await fetch('/api/tasks', {
             method: 'PUT',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(newTask),
         });
-
-        // Let other players know the game has concluded
-        // GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
     }
 
     async function increaseInventory(plantType, potType) {
@@ -104,14 +101,5 @@ export const ListComponent = ({ listItem, oldIncreaseInventory }) => {
             </p>
             {/* <img src={plant.imageUrl} alt="A plant growing in a pot" /> */}
         </div>
-
-        // <div className={`todo-item ${item.completed ? "completed" : ""}`}>
-        //     <input
-        //         type="checkbox"
-        //         checked={item.completed}
-        //         onChange={() => onToggle(item)}
-        //     />
-        //     <span>{item.text}</span>
-        // </div>
     );
 };

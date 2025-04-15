@@ -11,6 +11,7 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
     // export function Field_Guide() {
     const [list, setList] = React.useState([]);
     const [task, setTask] = React.useState("");
+    const [trigger, setTrigger] = React.useState(0);
 
     // Demonstrates calling a service asynchronously so that
     // React can properly update state objects with the results.
@@ -20,7 +21,7 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
         .then((list) => {
           setList(list);
         });
-    }, []);
+    }, [trigger]);
 
     const handleChange = (event) => {
         setTask(event.target.value);
@@ -28,12 +29,13 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
 
     const handleSubmit = (event) => {
         event.preventDefault(); // Prevent page reload
-        // console.log("Submitted message:", task);
 
         const newTask = new ListItem(task);
         // addTask(newTask)
         saveTask(newTask);
         setTask("");
+
+        setTrigger(trigger + 1);
     };
 
     async function saveTask(newTask) {
@@ -55,7 +57,7 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
         <main className='field-guide-main'>
             <div className="list">
                 {list.map((listItem) => (
-                    <ListComponent listItem={new ListItem(listItem)} increaseInventory={increaseInventory} />
+                    <ListComponent listItem={listItem} increaseInventory={increaseInventory} trigger={trigger} setTrigger={setTrigger} />
                 ))}
             </div>
 
