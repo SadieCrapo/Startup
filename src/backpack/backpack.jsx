@@ -1,7 +1,34 @@
 import React from 'react';
 import './backpack.css';
 
-export function Backpack({ plantInventory, potInventory, foodInventory }) {
+export function Backpack({ oldPlantInventory, oldPotInventory, oldFoodInventory }) {
+    const [plantInventory, setPlantInventory] = React.useState({});
+    const [potInventory, setPotInventory] = React.useState({});
+    const [foodInventory, setFoodInventory] = React.useState({});
+
+    React.useEffect(() => {
+        fetch('/api/inventory/plants')
+        .then((response) => response.json())
+        .then((plantInventory) => {
+            setPlantInventory(plantInventory);
+        });
+    });
+
+    React.useEffect(() => {
+        fetch('/api/inventory/pots')
+        .then((response) => response.json())
+        .then((potInventory) => {
+            setPotInventory(potInventory);
+        });
+    });
+
+    React.useEffect(() => {
+        fetch('/api/inventory/food')
+        .then((response) => response.json())
+        .then((foodInventory) => {
+            setFoodInventory(foodInventory);
+        });
+    });
 
     return (
         // <main className="container-fluid bg-secondary text-center">
