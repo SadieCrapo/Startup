@@ -1,10 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { MessageDialog } from './message-dialog';
 
 export function Unauthenticated(props) {
     const [greenhouseID, setID] = React.useState('');
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const [password, setPassword] = React.useState('');
+    const [displayError, setDisplayError] = React.useState(null);
     const navigate = useNavigate();
 
     async function loginOrCreate(endpoint) {
@@ -25,26 +27,20 @@ export function Unauthenticated(props) {
         }
     }
 
-    function loginUser() {
-        loginOrCreate('/api/session');
-        // localStorage.setItem('userName', userName);
-        // // setUserName(userName);
-        // localStorage.setItem('greenhouseID', greenhouseID);
-        // // setGreenhouseID(greenhouseID);
-        // props.onLogin(userName);
-        // // props.onLogin(userName, greenhouseID);
-        navigate('/greenhouse');
+    async function loginUser() {
+        // e.preventDefault();
+        const result = await loginOrCreate('/api/session');
+        if (result) {
+            navigate('/greenhouse');
+        }
     }
 
-    function createUser() {
-        loginOrCreate('/api/user');
-        // localStorage.setItem('userName', userName);
-        // // setUserName(userName);
-        // localStorage.setItem('greenhouseID', greenhouseID);
-        // // setGreenhouseID(greenhouseID);
-        // props.onLogin(userName);
-        // // props.onLogin(userName, greenhouseID);
-        navigate('/greenhouse');
+    async function createUser() {
+        // e.preventDefault(); // prevent page refresh
+        const result = await loginOrCreate('/api/user');
+        if (result) {
+            navigate('/greenhouse');
+        }
     }
 
     function userNameChange(e) {
@@ -63,22 +59,27 @@ export function Unauthenticated(props) {
 
         // <main className='login-main text-center'>
         // <h1 className="welcome-message">Welcome to Plantr!</h1>
-        <form>
-            <div className="input-group mb-3">
-                {/* <!-- <span className="input-group-text">ID</span> --> */}
-                <input className="form-control" type="text" onChange={idChange} placeholder="Greenhouse ID" />
-            </div>
-            <div className="input-group mb-3">
-                {/* <!-- <span className="input-group-text">@</span> --> */}
-                <input className="form-control" type="text" onChange={userNameChange} placeholder="your@email.com" />
-            </div>
-            <div className="input-group mb-3">
-                {/* <!-- <span className="input-group-text">🔒</span> --> */}
-                <input className="form-control" type="password" onChange={passwordChange} placeholder="password" />
-            </div>
+        <>
+            <form>
+                <div className="input-group mb-3">
+                    {/* <!-- <span className="input-group-text">ID</span> --> */}
+                    <input className="form-control" type="text" onChange={idChange} placeholder="Greenhouse ID" />
+                </div>
+                <div className="input-group mb-3">
+                    {/* <!-- <span className="input-group-text">@</span> --> */}
+                    <input className="form-control" type="text" onChange={userNameChange} placeholder="your@email.com" />
+                </div>
+                <div className="input-group mb-3">
+                    {/* <!-- <span className="input-group-text">🔒</span> --> */}
+                    <input className="form-control" type="password" onChange={passwordChange} placeholder="password" />
+                </div>
 
-            <button type="submit" onClick={loginUser} disabled={!greenhouseID || !userName || !password} className="btn action" >Login</button>
-            <button type="submit" onClick={createUser} disabled={!greenhouseID || !userName || !password} className="btn action">Create</button>
-        </form>
+                <button type="submit" onClick={loginUser} disabled={!greenhouseID || !userName || !password} className="btn action" >Login</button>
+                <button type="submit" onClick={createUser} disabled={!greenhouseID || !userName || !password} className="btn action">Create</button>
+            </form>
+
+            <MessageDialog message={displayError} onHide={() => setDisplayError(null)} />
+        </>
+
     );
 }
