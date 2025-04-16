@@ -10,10 +10,16 @@ export function Greenhouse({ plants, plantingState, plantInventory, potInventory
     React.useEffect(() => {
         fetch('/api/quotes')
             .then((res) => res.json())
-            .then((data) => setQuoteList(data));
+            .then((data) => fillQuoteList(data));
     }, []);
 
-    localStorage.setItem('quoteList', quoteList);
+    function fillQuoteList(data) {
+        const quotes = data.map((quote) => JSON.stringify(quote));
+        setQuoteList(quotes); // update React state
+        localStorage.setItem('quoteList', JSON.stringify(quotes));
+    }
+
+    // localStorage.setItem('quoteList', quoteList);
 
     return (
         <main className='greenhouse-main'>

@@ -8,16 +8,20 @@ export function PlantingInactive({ plantList, oldFoodInventory, decreaseInventor
     const [plants, setPlants] = React.useState([]);
     const [foodInventory, setFoodInventory] = React.useState({});
 
+    const [quoteList, setQuoteList] = React.useState(localStorage.getItem('quoteList') || []);
     const [quote, setQuote] = React.useState('Loading...');
     const [quoteAuthor, setQuoteAuthor] = React.useState('unknown');
 
-    React.useEffect(() => {
-        if (quoteList && quoteList.length > 0) {
-            var index = Math.floor(Math.random() * quoteList.length);
-            setQuote(quoteList[index].q);
-            setQuoteAuthor(quoteList[index].a);
-        }
+    const [refreshKey, setRefreshKey] = React.useState(0);
 
+    React.useEffect(() => {
+        var quotes = JSON.parse(quoteList);
+        if (quotes && quotes.length > 0) {
+            const index = Math.floor(Math.random() * quotes.length);
+            const rawQuote = JSON.parse(quotes[index]);
+            setQuote(rawQuote.q);
+            setQuoteAuthor(rawQuote.a);
+        }
     }, [quoteList]);
 
     React.useEffect(() => {
@@ -91,6 +95,7 @@ export function PlantingInactive({ plantList, oldFoodInventory, decreaseInventor
             plants[index] = plant;
         }
         updatePlants(plants);
+        handleRefresh();
     }
 
     async function updatePlants(plants) {
@@ -101,10 +106,14 @@ export function PlantingInactive({ plantList, oldFoodInventory, decreaseInventor
         });
     }
 
+    const handleRefresh = () => {
+        setRefreshKey(prevKey => prevKey + 1);  // Update the refreshKey to trigger a re-render
+    };
+
     return (
         <div className="inactive-parent">
             <div className="shelf-container">
-                <div className="shelves">
+                <div className="shelves" key={refreshKey}>
                     {plants.map((plant) => (
                         <PlantComponent plant={plant} />
                     ))}

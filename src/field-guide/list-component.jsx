@@ -13,7 +13,7 @@ export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrig
         .then((plantInventory) => {
             setPlantInventory(plantInventory);
         });
-    }, []);
+    }, [plantInventory]);
 
     React.useEffect(() => {
         fetch('/api/inventory/pots')
@@ -21,7 +21,7 @@ export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrig
         .then((potInventory) => {
             setPotInventory(potInventory);
         });
-    }, []);
+    }, [potInventory]);
 
     React.useEffect(() => {
         fetch('/api/inventory/food')
@@ -29,11 +29,10 @@ export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrig
         .then((foodInventory) => {
             setFoodInventory(foodInventory);
         });
-    }, []);
+    }, [foodInventory]);
 
     function onCheck(listItem) {
-        // console.log('in onCheck - listItem = ', listItem);
-        // console.log(listItem instanceof ListItem);
+
         const task = new ListItem(listItem.text);
         task.toggleComplete();
         updateTask(task);
@@ -88,18 +87,15 @@ export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrig
     return (
         <div className="list-item">
             <p>
-                {/* <input type="checkbox" checked /> */}
                 <input
                     type="checkbox"
                     checked={listItem.completed}
                     onChange={() => onCheck(listItem)}
-                    // onChange={() => onToggle(listItem)}
                 />
                 <span className={listItem.completed ? "completed-task list-item-text" : "list-item-text"}>{listItem.text}</span>
                 <br />
                 {listItem.completed && <span>Completed by {listItem.completedUser}</span>}
             </p>
-            {/* <img src={plant.imageUrl} alt="A plant growing in a pot" /> */}
         </div>
     );
 };
