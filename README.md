@@ -106,18 +106,18 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - I created temporary classes to implement a to-do list. I also created a plant class and implemented the ability to plant and grow things in the greenhouse.
+- [x] **Hooks** - I used useState in lots of places and useEffect in my app component to simulate a database call, retrieving a mock to-do list.
 
 ## 🚀 Service deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
+- [x] **Node.js/Express HTTP service** - I used express to define routes for each of my HTTP endpoints.
+- [x] **Static middleware for frontend** - I used static middleware to parse JSON and validate authCookies.
+- [x] **Calls to third party endpoints** - I used the third party API Zen Quotes to add a randomly generated quote to the greenhouse.
+- [x] **Backend service endpoints** - I created HTTP endpoints for each of the actions in my application.
+- [x] **Frontend calls service endpoints** - I used fetch functions to call my different endpoints.
 
 ## 🚀 DB/Login deliverable
 

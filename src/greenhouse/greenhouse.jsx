@@ -19,8 +19,6 @@ export function Greenhouse({ plants, plantingState, plantInventory, potInventory
         localStorage.setItem('quoteList', JSON.stringify(quotes));
     }
 
-    // localStorage.setItem('quoteList', quoteList);
-
     return (
         <main className='greenhouse-main'>
             {plantingState === PlantingState.Inactive && (

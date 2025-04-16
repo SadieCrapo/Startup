@@ -32,7 +32,6 @@ export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrig
     }, [foodInventory]);
 
     function onCheck(listItem) {
-
         const task = new ListItem(listItem.text);
         task.toggleComplete();
         updateTask(task);
