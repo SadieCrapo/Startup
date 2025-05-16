@@ -10,6 +10,7 @@ export function Unauthenticated(props) {
     const navigate = useNavigate();
 
     async function loginOrCreate(endpoint) {
+        // console.log("Inside loginOrCreate");
         const response = await fetch(endpoint, {
             method: 'POST',
             body: JSON.stringify({ userName: userName, password: password, greenhouse: greenhouseID }),
@@ -17,6 +18,8 @@ export function Unauthenticated(props) {
                 'Content-type': 'application/json; charset=UTF-8',
             },
         });
+        // console.log("Response:");
+        // console.log(response);
         if (response?.status === 200) {
             localStorage.setItem('userName', userName);
             localStorage.setItem('greenhouseID', greenhouseID);
@@ -27,17 +30,21 @@ export function Unauthenticated(props) {
         }
     }
 
-    async function loginUser() {
-        // e.preventDefault();
+    async function loginUser(e) {
+        e.preventDefault();
+        // console.log("Logging in user");
         const result = await loginOrCreate('/api/session');
+        // console.log("If result...");
         if (result) {
             navigate('/greenhouse');
         }
     }
 
-    async function createUser() {
-        // e.preventDefault(); // prevent page refresh
+    async function createUser(e) {
+        e.preventDefault(); // prevent page refresh
+        // console.log("Creating user");
         const result = await loginOrCreate('/api/user');
+        // console.log("If result...");
         if (result) {
             navigate('/greenhouse');
         }

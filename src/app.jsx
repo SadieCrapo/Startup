@@ -62,7 +62,7 @@ export default function App() {
 
             const fakeTodoList = [groceries, laundry, vacuum];
             setList(fakeTodoList);
-            console.log(fakeTodoList);
+            // console.log(fakeTodoList);
         }, 1000);
       }, []);
 

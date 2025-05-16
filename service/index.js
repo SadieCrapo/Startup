@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
 const app = express();
+const DB = require('./database.js');
 
 const authCookieName = 'token';
 const greenhouseCookieName = 'greenhouse';
@@ -39,6 +40,16 @@ apiRouter.post('/user', async (req, res) => {
         res.send({ userName: user.userName });
     }
 });
+// apiRouter.post('/auth/create', async (req, res) => {
+//     if (await findUser('email', req.body.email)) {
+//       res.status(409).send({ msg: 'Existing user' });
+//     } else {
+//       const user = await createUser(req.body.email, req.body.password);
+  
+//       setAuthCookie(res, user.token);
+//       res.send({ email: user.email });
+//     }
+//   });
 
 // GetAuth login an existing user
 apiRouter.post('/session', async (req, res) => {
@@ -161,13 +172,13 @@ apiRouter.put('/inventory/food', verifyAuth, (req, res) => {
     res.send(foodInventory[greenhouseID]);
 })
 
-app.get('/api/quotes', async (req, res) => {
-    const response = await fetch('https://zenquotes.io/api/quotes/');
-    // console.log(response);
-    const data = await response.json();
-    // console.log(data[0]);
-    res.json(data);
-});
+// app.get('/api/quotes', async (req, res) => {
+//     const response = await fetch('https://zenquotes.io/api/quotes/');
+//     // console.log(response);
+//     const data = await response.json();
+//     // console.log(data[0]);
+//     res.json(data);
+// });
 
 // Default error handler
 app.use(function (err, req, res, next) {
@@ -226,15 +237,32 @@ async function createUser(userName, password) {
         password: passwordHash,
         token: uuid.v4(),
     };
-    users.push(user);
+    await DB.addUser(user);
 
     return user;
+    // const passwordHash = await bcrypt.hash(password, 10);
+
+    // const user = {
+    //     userName: userName,
+    //     password: passwordHash,
+    //     token: uuid.v4(),
+    // };
+    // users.push(user);
+
+    // return user;
 }
 
 async function findUser(field, value) {
     if (!value) return null;
 
-    return users.find((u) => u[field] === value);
+    if (field === 'token') {
+        return DB.getUserByToken(value);
+    }
+    const returnValue = DB.getUser(value);
+    return returnValue;
+    // if (!value) return null;
+
+    // return users.find((u) => u[field] === value);
 }
 
 // setAuthCookie in the HTTP response

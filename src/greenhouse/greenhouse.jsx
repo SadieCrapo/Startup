@@ -6,18 +6,18 @@ import { PlantingActive } from './planting-active';
 import { PlantingInactive } from './planting-inactive';
 
 export function Greenhouse({ plants, plantingState, plantInventory, potInventory, foodInventory, decreaseInventoryFromFeeding, decreaseInventoryFromPlanting, addPlant, setPlantingActive, setPlantingInactive }) {
-    const [quoteList, setQuoteList] = React.useState([]);
-    React.useEffect(() => {
-        fetch('/api/quotes')
-            .then((res) => res.json())
-            .then((data) => fillQuoteList(data));
-    }, []);
+    // const [quoteList, setQuoteList] = React.useState([]);
+    // React.useEffect(() => {
+    //     fetch('/api/quotes')
+    //         .then((res) => res.json())
+    //         .then((data) => fillQuoteList(data));
+    // }, []);
 
-    function fillQuoteList(data) {
-        const quotes = data.map((quote) => JSON.stringify(quote));
-        setQuoteList(quotes); // update React state
-        localStorage.setItem('quoteList', JSON.stringify(quotes));
-    }
+    // function fillQuoteList(data) {
+    //     const quotes = data.map((quote) => JSON.stringify(quote));
+    //     setQuoteList(quotes); // update React state
+    //     localStorage.setItem('quoteList', JSON.stringify(quotes));
+    // }
 
     return (
         <main className='greenhouse-main'>

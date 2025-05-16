@@ -8,21 +8,21 @@ export function PlantingInactive({ plantList, oldFoodInventory, decreaseInventor
     const [plants, setPlants] = React.useState([]);
     const [foodInventory, setFoodInventory] = React.useState({});
 
-    const [quoteList, setQuoteList] = React.useState(localStorage.getItem('quoteList') || []);
-    const [quote, setQuote] = React.useState('Loading...');
-    const [quoteAuthor, setQuoteAuthor] = React.useState('unknown');
+    // const [quoteList, setQuoteList] = React.useState(localStorage.getItem('quoteList') || []);
+    // const [quote, setQuote] = React.useState('Loading...');
+    // const [quoteAuthor, setQuoteAuthor] = React.useState('unknown');
 
     const [refreshKey, setRefreshKey] = React.useState(0);
 
-    React.useEffect(() => {
-        var quotes = JSON.parse(quoteList);
-        if (quotes && quotes.length > 0) {
-            const index = Math.floor(Math.random() * quotes.length);
-            const rawQuote = JSON.parse(quotes[index]);
-            setQuote(rawQuote.q);
-            setQuoteAuthor(rawQuote.a);
-        }
-    }, [quoteList]);
+    // React.useEffect(() => {
+    //     var quotes = JSON.parse(quoteList);
+    //     if (quotes && quotes.length > 0) {
+    //         const index = Math.floor(Math.random() * quotes.length);
+    //         const rawQuote = JSON.parse(quotes[index]);
+    //         setQuote(rawQuote.q);
+    //         setQuoteAuthor(rawQuote.a);
+    //     }
+    // }, [quoteList]);
 
     React.useEffect(() => {
         fetch('/api/plants')
@@ -118,7 +118,7 @@ export function PlantingInactive({ plantList, oldFoodInventory, decreaseInventor
                         <PlantComponent plant={plant} />
                     ))}
                 </div>
-                <div className="quote-container">
+                {/* <div className="quote-container">
                     <h5 className="quote">
                     {quote}
                     <br />
@@ -127,7 +127,7 @@ export function PlantingInactive({ plantList, oldFoodInventory, decreaseInventor
                     <div className="acknowledment">
                     Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a>
                     </div>
-                </div>
+                </div> */}
             </div>
             <div className="tools">
                 <button onClick={setPlantingActive} className="action-button btn action">Plant</button>
