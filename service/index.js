@@ -57,6 +57,7 @@ apiRouter.post('/session', async (req, res) => {
     if (user) {
         if (await bcrypt.compare(req.body.password, user.password)) {
             user.token = uuid.v4();
+            DB.updateUser(user);
             setAuthCookie(res, user.token);
             setGreenhouseCookie(res, req.body.greenhouse);
             res.send({ userName: user.userName });
@@ -66,12 +67,13 @@ apiRouter.post('/session', async (req, res) => {
     res.status(401).send({ msg: 'Unauthorized' });
 });
 
-// DeleteAuth logout a user
+// DeleteAuth logout a user -------------------------------------------------
 apiRouter.delete('/session', async (req, res) => {
-    const user = await findUser('token', req.cookies[authCookieName]);
-    if (user) {
-        delete user.token;
-    }
+    DB.deleteToken(req.cookies[authCookieName]);
+    // const user = await findUser('token', req.cookies[authCookieName]);
+    // if (user) {
+    //     delete user.token;
+    // }
     res.clearCookie(authCookieName);
     res.clearCookie(greenhouseCookieName);
     res.status(204).end();
@@ -92,7 +94,7 @@ const verifyAuth = async (req, res, next) => {
 //   res.send(scores);
 // });
 
-// GetTasks
+// GetTasks -------------------------------------------------
 apiRouter.get('/tasks', verifyAuth, (_req, res) => {
     res.send(tasks[_req.cookies[greenhouseCookieName]]);
 })
@@ -103,14 +105,14 @@ apiRouter.get('/tasks', verifyAuth, (_req, res) => {
 //   res.send(scores);
 // });
 
-// NewTask
+// NewTask -------------------------------------------------
 apiRouter.post('/tasks', verifyAuth, (req, res) => {
     var greenhouseID = req.cookies[greenhouseCookieName];
     tasks[greenhouseID] = updateTasks(req.body, greenhouseID);
     res.send(tasks[greenhouseID]);
 })
 
-//CompleteTask
+//CompleteTask -------------------------------------------------
 apiRouter.put('/tasks', verifyAuth, (req, res) => {
     var greenhouseID = req.cookies[greenhouseCookieName];
     tasks[greenhouseID] = updateTasks(req.body, greenhouseID);
@@ -119,57 +121,75 @@ apiRouter.put('/tasks', verifyAuth, (req, res) => {
 
 // GetPlants
 apiRouter.get('/plants', verifyAuth, (_req, res) => {
-    res.send(plants[_req.cookies[greenhouseCookieName]]);
+    res.send(DB.getPlants(_req.cookies[greenhouseCookieName]));
+    // res.send(plants[_req.cookies[greenhouseCookieName]]);
 })
 
 // NewPlant
 apiRouter.post('/plants', verifyAuth, (req, res) => {
     var greenhouseID = req.cookies[greenhouseCookieName];
-    plants[greenhouseID] = updatePlants(req.body, greenhouseID);
-    res.send(plants[greenhouseID])
+    res.send(updatePlants(req.body, greenhouseID));
+    // plants[greenhouseID] = updatePlants(req.body, greenhouseID);
+    // res.send(plants[greenhouseID])
 })
 
 // GrowPlants
 apiRouter.put('/plants', verifyAuth, (req, res) => {
     var greenhouseID = req.cookies[greenhouseCookieName];
-    plants[greenhouseID] = req.body;
-    res.send(plants[greenhouseID]);
+    DB.updatePlants(req.body, greenhouseID);
+    res.send(req.body);
+    // plants[greenhouseID] = req.body;
+    // res.send(plants[greenhouseID]);
 })
 
 // GetPlantInventory
-apiRouter.get('/inventory/plants', verifyAuth, (_req, res) => {
-    res.send(plantInventory[_req.cookies[greenhouseCookieName]]);
+apiRouter.get('/inventory/plants', verifyAuth, async (_req, res) => {
+    const greenhouse = await DB.getGreenhouse(_req.cookies[greenhouseCookieName]);
+    res.send(greenhouse.plantInventory);
+
+    // res.send(DB.getPlantInventory(_req.cookies[greenhouseCookieName]));
+    // res.send(plantInventory[_req.cookies[greenhouseCookieName]]);
 })
 
 // UpdatePlantInventory
 apiRouter.put('/inventory/plants', verifyAuth, (req, res) => {
     var greenhouseID = req.cookies[greenhouseCookieName];
-    plantInventory[greenhouseID][req.body.plantType] = req.body.plantQuantity;
-    res.send(plantInventory[greenhouseID]);
+    var plantInventory = DB.updatePlantInventory(greenhouseID, req.body.plantType, req.body.plantQuantity);
+    res.send(plantInventory);
+    // plantInventory[greenhouseID][req.body.plantType] = req.body.plantQuantity;
+    // res.send(plantInventory[greenhouseID]);
 })
 
 // GetPotInventory
-apiRouter.get('/inventory/pots', verifyAuth, (_req, res) => {
-    res.send(potInventory[_req.cookies[greenhouseCookieName]]);
+apiRouter.get('/inventory/pots', verifyAuth, async (_req, res) => {
+    const greenhouse = await DB.getGreenhouse(_req.cookies[greenhouseCookieName]);
+    res.send(greenhouse.potInventory);
+    // res.send(potInventory[_req.cookies[greenhouseCookieName]]);
 })
 
 // UpdatePotInventory
 apiRouter.put('/inventory/pots', verifyAuth, (req, res) => {
     var greenhouseID = req.cookies[greenhouseCookieName];
-    potInventory[greenhouseID][req.body.potType] = req.body.potQuantity;
-    res.send(potInventory[greenhouseID]);
+    var potInventory = DB.updatePotInventory(greenhouseID, req.body.potType, req.body.potQuantity);
+    res.send(potInventory);
+    // potInventory[greenhouseID][req.body.potType] = req.body.potQuantity;
+    // res.send(potInventory[greenhouseID]);
 })
 
 // GetFoodInventory
-apiRouter.get('/inventory/food', verifyAuth, (_req, res) => {
-    res.send(foodInventory[_req.cookies[greenhouseCookieName]]);
+apiRouter.get('/inventory/food', verifyAuth, async (_req, res) => {
+    const greenhouse = await DB.getGreenhouse(_req.cookies[greenhouseCookieName]);
+    res.send(greenhouse.foodInventory);
+    // res.send(foodInventory[_req.cookies[greenhouseCookieName]]);
 })
 
 // UpdateFoodInventory
 apiRouter.put('/inventory/food', verifyAuth, (req, res) => {
     var greenhouseID = req.cookies[greenhouseCookieName];
-    foodInventory[greenhouseID] = req.body;
-    res.send(foodInventory[greenhouseID]);
+    DB.updateFoodInventory(greenhouseID, req.body);
+    res.send(req.body);
+    // foodInventory[greenhouseID] = req.body;
+    // res.send(foodInventory[greenhouseID]);
 })
 
 // app.get('/api/quotes', async (req, res) => {
@@ -190,28 +210,7 @@ app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });
 });
 
-// updateScores considers a new score for inclusion in the high scores.
-// function updateScores(newScore) {
-//     let found = false;
-//     for (const [i, prevScore] of scores.entries()) {
-//       if (newScore.score > prevScore.score) {
-//         scores.splice(i, 0, newScore);
-//         found = true;
-//         break;
-//       }
-//     }
-
-//     if (!found) {
-//       scores.push(newScore);
-//     }
-
-//     if (scores.length > 10) {
-//       scores.length = 10;
-//     }
-
-//     return scores;
-//   }
-
+// -------------------------------------------------
 function updateTasks(newTask, greenhouseID) {
     taskList = tasks[greenhouseID];
     let index = taskList.findIndex(task => task.text === newTask.text);
@@ -224,9 +223,7 @@ function updateTasks(newTask, greenhouseID) {
 }
 
 function updatePlants(newPlant, greenhouseID) {
-    plantList = plants[greenhouseID];
-    plantList.push(newPlant);
-    return plantList;
+    DB.addPlant(newPlant, greenhouseID);
 }
 
 async function createUser(userName, password) {
@@ -274,16 +271,27 @@ function setAuthCookie(res, authToken) {
     });
 }
 
-function setGreenhouseCookie(res, greenhouse) {
-    if (!greenhouses.find((g) => g === greenhouse)) {
-        greenhouses.push(greenhouse);
-        tasks[greenhouse] = [];
-        plants[greenhouse] = [];
-        plantInventory[greenhouse] = { 'monstera': 0, 'daisy': 0, 'laceleaf': 0 };
-        potInventory[greenhouse] = { 'terracotta': 0, 'marble': 0, 'hanging': 0 };
-        foodInventory[greenhouse] = { 'food': 0, 'water': 0 };
+function setGreenhouseCookie(res, greenhouseID) {
+    var result = DB.getGreenhouse(greenhouseID);
+    if (result) {
+    // if (!DB.getGreenhouse(greenhouseID)) {
+        const greenhouse = {
+            greenhouseID: greenhouseID,
+            tasks: [],
+            plants: [],
+            plantInventory: { 'monstera': 0, 'daisy': 0, 'laceleaf': 0 },
+            potInventory: { 'terracotta': 0, 'marble': 0, 'hanging': 0 },
+            foodInventory: { 'food': 0, 'water': 0 },
+        };
+        DB.addGreenhouse(greenhouse);
+        // greenhouses.push(greenhouse);
+        // tasks[greenhouse] = [];
+        // plants[greenhouse] = [];
+        // plantInventory[greenhouse] = { 'monstera': 0, 'daisy': 0, 'laceleaf': 0 };
+        // potInventory[greenhouse] = { 'terracotta': 0, 'marble': 0, 'hanging': 0 };
+        // foodInventory[greenhouse] = { 'food': 0, 'water': 0 };
     }
-    res.cookie(greenhouseCookieName, greenhouse, {
+    res.cookie(greenhouseCookieName, greenhouseID, {
         secure: true,
         httpOnly: true,
         sameSite: 'strict',
