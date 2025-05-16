@@ -18,8 +18,9 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
     React.useEffect(() => {
       fetch('/api/tasks')
         .then((response) => response.json())
-        .then((list) => {
-          setList(list);
+        .then((list) => {            
+            const simplifiedList = list.map(item => item.task);
+            setList(simplifiedList);
         });
     }, [trigger]);
 
@@ -31,25 +32,19 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
         event.preventDefault(); // Prevent page reload
 
         const newTask = new ListItem(task);
-        // addTask(newTask)
         saveTask(newTask);
+        console.log(JSON.stringify(newTask));
         setTask("");
 
         setTrigger(trigger + 1);
     };
 
     async function saveTask(newTask) {
-        // const date = new Date().toLocaleDateString();
-        // const newScore = { name: userName, score: score, date: date };
-
         await fetch('/api/tasks', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(newTask),
         });
-
-        // Let other players know the game has concluded
-        // GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
     }
 
     return (

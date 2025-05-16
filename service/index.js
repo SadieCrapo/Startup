@@ -67,7 +67,7 @@ apiRouter.post('/session', async (req, res) => {
     res.status(401).send({ msg: 'Unauthorized' });
 });
 
-// DeleteAuth logout a user -------------------------------------------------
+// DeleteAuth logout a user
 apiRouter.delete('/session', async (req, res) => {
     DB.deleteToken(req.cookies[authCookieName]);
     // const user = await findUser('token', req.cookies[authCookieName]);
@@ -94,9 +94,13 @@ const verifyAuth = async (req, res, next) => {
 //   res.send(scores);
 // });
 
-// GetTasks -------------------------------------------------
-apiRouter.get('/tasks', verifyAuth, (_req, res) => {
-    res.send(tasks[_req.cookies[greenhouseCookieName]]);
+// GetTasks
+apiRouter.get('/tasks', verifyAuth, async (_req, res) => {
+    const taskCursor = await DB.getTasks(_req.cookies[greenhouseCookieName]);
+    const taskList = await taskCursor.toArray();
+    console.log(taskList);
+    res.send(taskList);
+    // res.send(tasks[_req.cookies[greenhouseCookieName]]);
 })
 
 // SubmitScore
@@ -105,11 +109,20 @@ apiRouter.get('/tasks', verifyAuth, (_req, res) => {
 //   res.send(scores);
 // });
 
-// NewTask -------------------------------------------------
-apiRouter.post('/tasks', verifyAuth, (req, res) => {
+// NewTask
+apiRouter.post('/tasks', verifyAuth, async (req, res) => {
     var greenhouseID = req.cookies[greenhouseCookieName];
-    tasks[greenhouseID] = updateTasks(req.body, greenhouseID);
-    res.send(tasks[greenhouseID]);
+    const task = {
+        greenhouseID: greenhouseID,
+        task: req.body,
+    }
+    DB.addTask(task);
+
+    const taskList = DB.getTasks(greenhouseID);
+    console.log(taskList);
+    res.send([...taskList]);
+    // tasks[greenhouseID] = updateTasks(req.body, greenhouseID);
+    // res.send(tasks[greenhouseID]);
 })
 
 //CompleteTask -------------------------------------------------
