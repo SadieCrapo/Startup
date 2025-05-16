@@ -19,8 +19,10 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
       fetch('/api/tasks')
         .then((response) => response.json())
         .then((list) => {            
-            const simplifiedList = list.map(item => item.task);
-            setList(simplifiedList);
+            // const simplifiedList = list.map(item => item.task);
+            // setList(simplifiedList);
+            console.log(list);
+            setList(list);
         });
     }, [trigger]);
 
@@ -31,19 +33,22 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
     const handleSubmit = (event) => {
         event.preventDefault(); // Prevent page reload
 
-        const newTask = new ListItem(task);
-        saveTask(newTask);
-        console.log(JSON.stringify(newTask));
+        // const newTask = new ListItem(task);
+        // saveTask(newTask);
+        saveTask(task);
+        // console.log(JSON.stringify(newTask));
         setTask("");
 
         setTrigger(trigger + 1);
     };
 
     async function saveTask(newTask) {
+        console.log(newTask);
         await fetch('/api/tasks', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(newTask),
+            body: JSON.stringify({ text: newTask }),
+            // body: newTask,
         });
     }
 

@@ -100,7 +100,8 @@ async function addTask(task) {
 }
 
 function getTasks(greenhouseID) {
-  return taskCollection.find({ greenhouseID: greenhouseID }).project({ task: 1, _id: 0 });
+    return taskCollection.find({ greenhouseID: greenhouseID }).project({ greenhouseID: 0 });
+  // return taskCollection.find({ greenhouseID: greenhouseID }).project({ task: 1, _id: 0 });
 }
 
 // async function addScore(score) {

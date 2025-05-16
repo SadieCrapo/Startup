@@ -98,7 +98,6 @@ const verifyAuth = async (req, res, next) => {
 apiRouter.get('/tasks', verifyAuth, async (_req, res) => {
     const taskCursor = await DB.getTasks(_req.cookies[greenhouseCookieName]);
     const taskList = await taskCursor.toArray();
-    console.log(taskList);
     res.send(taskList);
     // res.send(tasks[_req.cookies[greenhouseCookieName]]);
 })
@@ -112,9 +111,14 @@ apiRouter.get('/tasks', verifyAuth, async (_req, res) => {
 // NewTask
 apiRouter.post('/tasks', verifyAuth, async (req, res) => {
     var greenhouseID = req.cookies[greenhouseCookieName];
+    console.log("Inside post");
+    console.log(req.body);
     const task = {
         greenhouseID: greenhouseID,
-        task: req.body,
+        text: req.body.text,
+        completed: false,
+        completedUser: "",
+        // task: req.body,
     }
     DB.addTask(task);
 

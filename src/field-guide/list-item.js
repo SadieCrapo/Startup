@@ -1,5 +1,6 @@
 export class ListItem {
-    constructor(text, completed=false, completedUser="") {
+    constructor(id=null, text, completed=false, completedUser="") {
+        this._id = id;
         this.text = text;
         this.completed = completed;
         this.completedUser = completedUser;
