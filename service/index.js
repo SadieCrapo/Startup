@@ -129,11 +129,20 @@ apiRouter.post('/tasks', verifyAuth, async (req, res) => {
     // res.send(tasks[greenhouseID]);
 })
 
-//CompleteTask -------------------------------------------------
+//CompleteTask
 apiRouter.put('/tasks', verifyAuth, (req, res) => {
-    var greenhouseID = req.cookies[greenhouseCookieName];
-    tasks[greenhouseID] = updateTasks(req.body, greenhouseID);
-    res.send(tasks[greenhouseID]);
+    var taskID = req.body._id;
+    // console.log(taskID);
+    // console.log(req.body.completed);
+    // console.log(req.body.text);
+    // console.log(req.body.completedUser);
+    DB.updateTask(taskID, req.body.completedUser);
+    // const taskList = await DB.getTasks(req.cookies[greenhouseCookieName]);
+    // res.send(taskList);
+
+    // var greenhouseID = req.cookies[greenhouseCookieName];
+    // tasks[greenhouseID] = updateTasks(req.body, greenhouseID);
+    // res.send(tasks[greenhouseID]);
 })
 
 // GetPlants

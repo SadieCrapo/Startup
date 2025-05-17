@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
@@ -104,6 +104,14 @@ function getTasks(greenhouseID) {
   // return taskCollection.find({ greenhouseID: greenhouseID }).project({ task: 1, _id: 0 });
 }
 
+function updateTask(id, user) {
+    // const taskID = new ObjectId(id);
+    // console.log(taskID);
+    // const task = await taskCollection.findOne({ _id: new ObjectId(id) });
+    // console.log(task);
+    taskCollection.updateOne({ _id: new ObjectId(id) }, { $set: { completed: true, completedUser: user } });
+}
+
 // async function addScore(score) {
 //   return scoreCollection.insertOne(score);
 // }
@@ -136,5 +144,6 @@ module.exports = {
   // getFoodInventory,
   updateFoodInventory,
   addTask,
-  getTasks
+  getTasks,
+  updateTask,
 };

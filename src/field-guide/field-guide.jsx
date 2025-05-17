@@ -21,7 +21,7 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
         .then((list) => {            
             // const simplifiedList = list.map(item => item.task);
             // setList(simplifiedList);
-            console.log(list);
+            console.log(trigger);
             setList(list);
         });
     }, [trigger]);
@@ -39,7 +39,7 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
         // console.log(JSON.stringify(newTask));
         setTask("");
 
-        setTrigger(trigger + 1);
+        setTrigger(prev => prev + 1);
     };
 
     async function saveTask(newTask) {
