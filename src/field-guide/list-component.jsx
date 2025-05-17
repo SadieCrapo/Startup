@@ -13,7 +13,7 @@ export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrig
         .then((plantInventory) => {
             setPlantInventory(plantInventory);
         });
-    }, [plantInventory]);
+    }, [trigger]);
 
     React.useEffect(() => {
         fetch('/api/inventory/pots')
@@ -21,7 +21,7 @@ export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrig
         .then((potInventory) => {
             setPotInventory(potInventory);
         });
-    }, [potInventory]);
+    }, [trigger]);
 
     React.useEffect(() => {
         fetch('/api/inventory/food')
@@ -29,14 +29,20 @@ export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrig
         .then((foodInventory) => {
             setFoodInventory(foodInventory);
         });
-    }, [foodInventory]);
+    }, [trigger]);
 
     function onCheck(listItem) {
-        const task = new ListItem(listItem.text);
+        const task = new ListItem(listItem._id, listItem.text, listItem.completed, listItem.completedUser);
         task.toggleComplete();
+        // console.log(task);
+        // console.log(task.completed);
         updateTask(task);
-        generateRandomKeys();
-        setTrigger(trigger + 1);
+        // const task = new ListItem(listItem.text);
+        // task.toggleComplete();
+        // updateTask(task);
+
+        // generateRandomKeys();
+        setTrigger(prev => prev + 1);
     }
 
     function generateRandomKeys() {
@@ -50,6 +56,7 @@ export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrig
     }
 
     async function updateTask(newTask) {
+        // console.log(newTask);
         await fetch('/api/tasks', {
             method: 'PUT',
             headers: { 'content-type': 'application/json' },
