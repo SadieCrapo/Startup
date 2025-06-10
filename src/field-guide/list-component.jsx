@@ -7,42 +7,46 @@ export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrig
     const [potInventory, setPotInventory] = React.useState({});
     const [foodInventory, setFoodInventory] = React.useState({});
 
-    React.useEffect(() => {
-        fetch('/api/inventory/plants')
-        .then((response) => response.json())
-        .then((plantInventory) => {
-            setPlantInventory(plantInventory);
-        });
-    }, [trigger]);
+    // React.useEffect(() => {
+    //     fetch('/api/inventory/plants')
+    //     .then((response) => response.json())
+    //     .then((plantInventory) => {
+    //         setPlantInventory(plantInventory);
+    //     });
+    // }, [trigger]);
 
-    React.useEffect(() => {
-        fetch('/api/inventory/pots')
-        .then((response) => response.json())
-        .then((potInventory) => {
-            setPotInventory(potInventory);
-        });
-    }, [trigger]);
+    // React.useEffect(() => {
+    //     fetch('/api/inventory/pots')
+    //     .then((response) => response.json())
+    //     .then((potInventory) => {
+    //         setPotInventory(potInventory);
+    //     });
+    // }, [trigger]);
 
-    React.useEffect(() => {
-        fetch('/api/inventory/food')
-        .then((response) => response.json())
-        .then((foodInventory) => {
-            setFoodInventory(foodInventory);
-        });
-    }, [trigger]);
+    // React.useEffect(() => {
+    //     fetch('/api/inventory/food')
+    //     .then((response) => response.json())
+    //     .then((foodInventory) => {
+    //         setFoodInventory(foodInventory);
+    //     });
+    // }, [trigger]);
 
-    function onCheck(listItem) {
+    async function onCheck(listItem) {
         const task = new ListItem(listItem._id, listItem.text, listItem.completed, listItem.completedUser);
         task.toggleComplete();
         // console.log(task);
         // console.log(task.completed);
-        updateTask(task);
+        await updateTask(task);
         // const task = new ListItem(listItem.text);
         // task.toggleComplete();
         // updateTask(task);
 
         // generateRandomKeys();
-        setTrigger(prev => prev + 1);
+        // setTrigger(prev => prev + 1);
+        console.log('Trigger:', trigger);
+        trigger = trigger + 1;
+        setTrigger(trigger);
+        console.log('Updated trigger:', trigger);
     }
 
     function generateRandomKeys() {
@@ -57,11 +61,20 @@ export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrig
 
     async function updateTask(newTask) {
         // console.log(newTask);
-        await fetch('/api/tasks', {
+        const response = await fetch('/api/tasks', {
             method: 'PUT',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(newTask),
         });
+        // console.log('Trigger:', trigger);
+        // trigger = trigger + 1;
+        // console.log('Updated trigger:', trigger);
+        // setTrigger(trigger);
+
+        // console.log(trigger);
+        // trigger = trigger + 1;
+        // setTrigger(trigger);
+        // setTrigger(prev => prev + 1);
     }
 
     async function increaseInventory(plantType, potType) {

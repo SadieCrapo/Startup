@@ -122,8 +122,11 @@ apiRouter.post('/tasks', verifyAuth, async (req, res) => {
     }
     DB.addTask(task);
 
-    const taskList = DB.getTasks(greenhouseID);
-    console.log(taskList);
+    const taskCursor = await DB.getTasks(req.cookies[greenhouseCookieName]);
+    const taskList = await taskCursor.toArray();
+
+    // const taskList = await DB.getTasks(greenhouseID);
+    // console.log(taskList);
     res.send([...taskList]);
     // tasks[greenhouseID] = updateTasks(req.body, greenhouseID);
     // res.send(tasks[greenhouseID]);
@@ -139,6 +142,7 @@ apiRouter.put('/tasks', verifyAuth, (req, res) => {
     DB.updateTask(taskID, req.body.completedUser);
     // const taskList = await DB.getTasks(req.cookies[greenhouseCookieName]);
     // res.send(taskList);
+    res.status(200).json({ message: 'Task updated successfully' });
 
     // var greenhouseID = req.cookies[greenhouseCookieName];
     // tasks[greenhouseID] = updateTasks(req.body, greenhouseID);
@@ -237,16 +241,16 @@ app.use((_req, res) => {
 });
 
 // -------------------------------------------------
-function updateTasks(newTask, greenhouseID) {
-    taskList = tasks[greenhouseID];
-    let index = taskList.findIndex(task => task.text === newTask.text);
-    if (index !== -1) {
-        taskList[index] = newTask;
-    } else {
-        taskList.push(newTask);
-    }
-    return taskList;
-}
+// function updateTasks(newTask, greenhouseID) {
+//     taskList = tasks[greenhouseID];
+//     let index = taskList.findIndex(task => task.text === newTask.text);
+//     if (index !== -1) {
+//         taskList[index] = newTask;
+//     } else {
+//         taskList.push(newTask);
+//     }
+//     return taskList;
+// }
 
 function updatePlants(newPlant, greenhouseID) {
     DB.addPlant(newPlant, greenhouseID);

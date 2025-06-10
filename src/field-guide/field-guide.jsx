@@ -13,8 +13,6 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
     const [task, setTask] = React.useState("");
     const [trigger, setTrigger] = React.useState(0);
 
-    // Demonstrates calling a service asynchronously so that
-    // React can properly update state objects with the results.
     React.useEffect(() => {
       fetch('/api/tasks')
         .then((response) => response.json())
@@ -30,12 +28,12 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
         setTask(event.target.value);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent page reload
 
         // const newTask = new ListItem(task);
         // saveTask(newTask);
-        saveTask(task);
+        await saveTask(task);
         // console.log(JSON.stringify(newTask));
         setTask("");
 
@@ -43,13 +41,17 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
     };
 
     async function saveTask(newTask) {
-        console.log(newTask);
+        // console.log(newTask);
+        // const response = await fetch('/api/tasks', {
         await fetch('/api/tasks', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({ text: newTask }),
             // body: newTask,
         });
+        // setTrigger(prev => prev + 1);
+        // const responseText = await response.text();
+        // console.log('Response body:', responseText);
     }
 
     return (

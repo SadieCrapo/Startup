@@ -7,9 +7,9 @@ const db = client.db('plantr');
 const userCollection = db.collection('user');
 const greenhouseCollection = db.collection('greenhouse');
 const taskCollection = db.collection('task');
-// const plantInventoryCollection = db.collection('plantInventory');
-// const potInventoryCollection = db.collection('potInventory');
-// const foodInventoryCollection = db.collection('foodInventory');
+const plantInventoryCollection = db.collection('plantInventory');
+const potInventoryCollection = db.collection('potInventory');
+const foodInventoryCollection = db.collection('foodInventory');
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -62,16 +62,18 @@ function getPlants(greenhouseID) {
   return greenhouseCollection.findOne({ greenhouseID: greenhouseID }).plants;
 }
 
-// function getPlantInventory(greenhouseID) {
-//   return greenhouseCollection.findOne({ greenhouseID: greenhouseID });
-//   // return greenhouseCollection.findOne({ greenhouseID: greenhouseID }).plantInventory;
-// }
+function getPlantInventory(greenhouseID) {
+    return plantInventoryCollection.findOne({ greenhouseID: greenhouseID });
+  // return greenhouseCollection.findOne({ greenhouseID: greenhouseID });
+  // return greenhouseCollection.findOne({ greenhouseID: greenhouseID }).plantInventory;
+}
 
 function updatePlantInventory(greenhouseID, plantType, quantity) {
-  var plantInventory = greenhouseCollection.findOne({ greenhouseID: greenhouseID }).plantInventory;
-  plantInventory[plantType] = quantity;
-  greenhouseCollection.updateOne({ greenhouseID: greenhouseID }, { $set: { plantInventory: plantInventory } });
-  return plantInventory;
+    plantInventoryCollection.updateOne({ greenhouseID: greenhouseID }, { $set: { [plantType]: quantity }});
+  // var plantInventory = greenhouseCollection.findOne({ greenhouseID: greenhouseID }).plantInventory;
+  // plantInventory[plantType] = quantity;
+  // greenhouseCollection.updateOne({ greenhouseID: greenhouseID }, { $set: { plantInventory: plantInventory } });
+  // return plantInventory;
 
   // greenhouseCollection.updateOne({ greenhouseID: greenhouseID }, { $set: { plantInventory[plantType]: quantity } });
 }
