@@ -26,9 +26,12 @@ export function PlantingInactive({ plantList, oldFoodInventory, decreaseInventor
 
     React.useEffect(() => {
         fetch('/api/plants')
+            // .then((response) => response.text())
+            // .then((responseText) => console.log(responseText))
             .then((response) => response.json())
             .then((plants) => {
                 setPlants(plants);
+                console.log(plants);
             });
     }, []);
 

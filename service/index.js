@@ -152,8 +152,8 @@ apiRouter.put('/tasks', verifyAuth, (req, res) => {
 })
 
 // GetPlants
-apiRouter.get('/plants', verifyAuth, (_req, res) => {
-    res.send(DB.getPlants(_req.cookies[greenhouseCookieName]));
+apiRouter.get('/plants', verifyAuth, async (_req, res) => {
+    res.send(await DB.getPlants(_req.cookies[greenhouseCookieName]));
     // res.send(plants[_req.cookies[greenhouseCookieName]]);
 })
 

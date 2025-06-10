@@ -58,8 +58,11 @@ async function updatePlants(plantList, greenhouseID) {
     greenhouseCollection.updateOne({ greenhouseID: greenhouseID }, { $set: { plants: plantList } });
 }
 
-function getPlants(greenhouseID) {
-    return greenhouseCollection.findOne({ greenhouseID: greenhouseID }).plants;
+async function getPlants(greenhouseID) {
+    const plants = await greenhouseCollection.findOne({ greenhouseID: greenhouseID });
+    // console.log(plants.plants);
+    return plants.plants;
+    // return greenhouseCollection.findOne({ greenhouseID: greenhouseID }, { _id: 0, greenhouseID: 0 });
 }
 
 function getPlantInventory(greenhouseID) {
