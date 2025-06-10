@@ -30,7 +30,9 @@ app.use(`/api`, apiRouter);
 
 // CreateAuth a new user
 apiRouter.post('/user', async (req, res) => {
+    // const user = await findUser('userName', req.body.userName);
     if (await findUser('userName', req.body.userName)) {
+    // if (user) {
         res.status(409).send({ msg: 'Existing user' });
     } else {
         const user = await createUser(req.body.userName, req.body.password);
@@ -111,8 +113,8 @@ apiRouter.get('/tasks', verifyAuth, async (_req, res) => {
 // NewTask
 apiRouter.post('/tasks', verifyAuth, async (req, res) => {
     var greenhouseID = req.cookies[greenhouseCookieName];
-    console.log("Inside post");
-    console.log(req.body);
+    // console.log("Inside post");
+    // console.log(req.body);
     const task = {
         greenhouseID: greenhouseID,
         text: req.body.text,
@@ -174,8 +176,11 @@ apiRouter.put('/plants', verifyAuth, (req, res) => {
 
 // GetPlantInventory
 apiRouter.get('/inventory/plants', verifyAuth, async (_req, res) => {
-    const greenhouse = await DB.getGreenhouse(_req.cookies[greenhouseCookieName]);
-    res.send(greenhouse.plantInventory);
+    const inventory = await DB.getPlantInventory(_req.cookies[greenhouseCookieName]);
+    // console.log(inventory);
+    res.send(inventory);
+    // const greenhouse = await DB.getGreenhouse(_req.cookies[greenhouseCookieName]);
+    // res.send(greenhouse.plantInventory);
 
     // res.send(DB.getPlantInventory(_req.cookies[greenhouseCookieName]));
     // res.send(plantInventory[_req.cookies[greenhouseCookieName]]);
@@ -192,8 +197,10 @@ apiRouter.put('/inventory/plants', verifyAuth, (req, res) => {
 
 // GetPotInventory
 apiRouter.get('/inventory/pots', verifyAuth, async (_req, res) => {
-    const greenhouse = await DB.getGreenhouse(_req.cookies[greenhouseCookieName]);
-    res.send(greenhouse.potInventory);
+    const inventory = await DB.getPotInventory(_req.cookies[greenhouseCookieName]);
+    res.send(inventory);
+    // const greenhouse = await DB.getGreenhouse(_req.cookies[greenhouseCookieName]);
+    // res.send(greenhouse.potInventory);
     // res.send(potInventory[_req.cookies[greenhouseCookieName]]);
 })
 
@@ -208,14 +215,17 @@ apiRouter.put('/inventory/pots', verifyAuth, (req, res) => {
 
 // GetFoodInventory
 apiRouter.get('/inventory/food', verifyAuth, async (_req, res) => {
-    const greenhouse = await DB.getGreenhouse(_req.cookies[greenhouseCookieName]);
-    res.send(greenhouse.foodInventory);
+    const inventory = await DB.getFoodInventory(_req.cookies[greenhouseCookieName]);
+    res.send(inventory);
+    // const greenhouse = await DB.getGreenhouse(_req.cookies[greenhouseCookieName]);
+    // res.send(greenhouse.foodInventory);
     // res.send(foodInventory[_req.cookies[greenhouseCookieName]]);
 })
 
 // UpdateFoodInventory
 apiRouter.put('/inventory/food', verifyAuth, (req, res) => {
     var greenhouseID = req.cookies[greenhouseCookieName];
+    // console.log(req.body);
     DB.updateFoodInventory(greenhouseID, req.body);
     res.send(req.body);
     // foodInventory[greenhouseID] = req.body;
@@ -307,13 +317,35 @@ function setGreenhouseCookie(res, greenhouseID) {
     // if (!DB.getGreenhouse(greenhouseID)) {
         const greenhouse = {
             greenhouseID: greenhouseID,
-            tasks: [],
             plants: [],
-            plantInventory: { 'monstera': 0, 'daisy': 0, 'laceleaf': 0 },
-            potInventory: { 'terracotta': 0, 'marble': 0, 'hanging': 0 },
-            foodInventory: { 'food': 0, 'water': 0 },
+            // greenhouseID: greenhouseID,
+            // tasks: [],
+            // plants: [],
+            // plantInventory: { 'monstera': 0, 'daisy': 0, 'laceleaf': 0 },
+            // potInventory: { 'terracotta': 0, 'marble': 0, 'hanging': 0 },
+            // foodInventory: { 'food': 0, 'water': 0 },
         };
         DB.addGreenhouse(greenhouse);
+        const plantInventory = {
+            greenhouseID: greenhouseID,
+            monstera: 0,
+            daisy: 0,
+            laceleaf: 0,
+        };
+        DB.addPlantInventory(plantInventory);
+        const potInventory = {
+            greenhouseID: greenhouseID,
+            terracotta: 0,
+            marble: 0,
+            hanging: 0,
+        };
+        DB.addPotInventory(potInventory);
+        const foodInventory = {
+            greenhouseID: greenhouseID,
+            food: 0,
+            water: 0,
+        };
+        DB.addFoodInventory(foodInventory);
         // greenhouses.push(greenhouse);
         // tasks[greenhouse] = [];
         // plants[greenhouse] = [];

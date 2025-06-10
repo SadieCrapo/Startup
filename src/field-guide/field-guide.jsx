@@ -15,12 +15,15 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
 
     React.useEffect(() => {
       fetch('/api/tasks')
+        // .then((response) => response.text())
+        // .then((responseText) => console.log('Response body:', responseText))
         .then((response) => response.json())
         .then((list) => {            
             // const simplifiedList = list.map(item => item.task);
             // setList(simplifiedList);
-            console.log(trigger);
+            // console.log(trigger);
             setList(list);
+            console.log(list);
         });
     }, [trigger]);
 

@@ -13,59 +13,63 @@ const foodInventoryCollection = db.collection('foodInventory');
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
-  try {
-    await db.command({ ping: 1 });
-    console.log(`Connect to database`);
-  } catch (ex) {
-    console.log(`Unable to connect to database with ${url} because ${ex.message}`);
-    process.exit(1);
-  }
+    try {
+        await db.command({ ping: 1 });
+        console.log(`Connect to database`);
+    } catch (ex) {
+        console.log(`Unable to connect to database with ${url} because ${ex.message}`);
+        process.exit(1);
+    }
 })();
 
 function getUser(userName) {
-  return userCollection.findOne({ userName: userName });
+    return userCollection.findOne({ userName: userName });
 }
 
 function getUserByToken(token) {
-  return userCollection.findOne({ token: token });
+    return userCollection.findOne({ token: token });
 }
 
 async function addUser(user) {
-  await userCollection.insertOne(user);
+    await userCollection.insertOne(user);
 }
 
 async function updateUser(user) {
-  await userCollection.updateOne({ userName: user.userName }, { $set: user });
+    await userCollection.updateOne({ userName: user.userName }, { $set: user });
 }
 
 function deleteToken(token) {
-  userCollection.updateOne({ token: token }, { $set: { token: "" } })
+    userCollection.updateOne({ token: token }, { $set: { token: "" } })
 }
 
 function getGreenhouse(greenhouse) {
-  return greenhouseCollection.findOne({ greenhouseID: greenhouse });
+    return greenhouseCollection.findOne({ greenhouseID: greenhouse });
 }
 
 async function addGreenhouse(greenhouse) {
-  await greenhouseCollection.insertOne(greenhouse);
+    await greenhouseCollection.insertOne(greenhouse);
 }
 
 async function addPlant(plant, greenhouseID) {
-  greenhouseCollection.updateOne({ greenhouseID: greenhouseID }, { $push: { plants: plant } });
+    greenhouseCollection.updateOne({ greenhouseID: greenhouseID }, { $push: { plants: plant } });
 }
 
 async function updatePlants(plantList, greenhouseID) {
-  greenhouseCollection.updateOne({ greenhouseID: greenhouseID }, { $set: { plants: plantList } });
+    greenhouseCollection.updateOne({ greenhouseID: greenhouseID }, { $set: { plants: plantList } });
 }
 
 function getPlants(greenhouseID) {
-  return greenhouseCollection.findOne({ greenhouseID: greenhouseID }).plants;
+    return greenhouseCollection.findOne({ greenhouseID: greenhouseID }).plants;
 }
 
 function getPlantInventory(greenhouseID) {
     return plantInventoryCollection.findOne({ greenhouseID: greenhouseID });
   // return greenhouseCollection.findOne({ greenhouseID: greenhouseID });
   // return greenhouseCollection.findOne({ greenhouseID: greenhouseID }).plantInventory;
+}
+
+async function addPlantInventory(plantInventory) {
+    await plantInventoryCollection.insertOne(plantInventory);
 }
 
 function updatePlantInventory(greenhouseID, plantType, quantity) {
@@ -78,27 +82,38 @@ function updatePlantInventory(greenhouseID, plantType, quantity) {
   // greenhouseCollection.updateOne({ greenhouseID: greenhouseID }, { $set: { plantInventory[plantType]: quantity } });
 }
 
-// function getPotInventory(greenhouseID) {
-//   return greenhouseCollection.findOne({ greenhouseID: greenhouseID });
-// }
-
-function updatePotInventory(greenhouseID, potType, quantity) {
-  var potInventory = greenhouseCollection.findOne({ greenhouseID: greenhouseID }).potInventory;
-  potInventory[potType] = quantity;
-  greenhouseCollection.updateOne({ greenhouseID: greenhouseID }, { $set: { potInventory: potInventory } });
-  return potInventory;
+function getPotInventory(greenhouseID) {
+    return potInventoryCollection.findOne({ greenhouseID: greenhouseID });
+  // return greenhouseCollection.findOne({ greenhouseID: greenhouseID });
 }
 
-// function getFoodInventory(greenhouseID) {
-//   return greenhouseCollection.findOne({ greenhouseID: greenhouseID });
-// }
+async function addPotInventory(potInventory) {
+    await potInventoryCollection.insertOne(potInventory);
+}
+
+function updatePotInventory(greenhouseID, potType, quantity) {
+    potInventoryCollection.updateOne({ greenhouseID: greenhouseID }, { $set: { [potType]: quantity }});
+    // var potInventory = greenhouseCollection.findOne({ greenhouseID: greenhouseID }).potInventory;
+    // potInventory[potType] = quantity;
+    // greenhouseCollection.updateOne({ greenhouseID: greenhouseID }, { $set: { potInventory: potInventory } });
+    // return potInventory;
+}
+
+function getFoodInventory(greenhouseID) {
+    return foodInventoryCollection.findOne({ greenhouseID: greenhouseID });
+  // return greenhouseCollection.findOne({ greenhouseID: greenhouseID });
+}
+
+async function addFoodInventory(foodInventory) {
+    await foodInventoryCollection.insertOne(foodInventory);
+}
 
 function updateFoodInventory(greenhouseID, foodInventory) {
-  greenhouseCollection.updateOne({ greenhouseID: greenhouseID }, { $set: { foodInventory: foodInventory } });
+    foodInventoryCollection.updateOne({ greenhouseID: greenhouseID }, { $set: { water: foodInventory.water, food: foodInventory.food } });
 }
 
 async function addTask(task) {
-  await taskCollection.insertOne(task);
+    await taskCollection.insertOne(task);
 }
 
 function getTasks(greenhouseID) {
@@ -129,23 +144,26 @@ function updateTask(id, user) {
 // }
 
 module.exports = {
-  getUser,
-  getUserByToken,
-  addUser,
-  updateUser,
-  deleteToken,
-  getGreenhouse,
-  addGreenhouse,
-  addPlant,
-  updatePlants,
-  getPlants,
-  // getPlantInventory,
-  updatePlantInventory,
-  // getPotInventory,
-  updatePotInventory,
-  // getFoodInventory,
-  updateFoodInventory,
-  addTask,
-  getTasks,
-  updateTask,
+    getUser,
+    getUserByToken,
+    addUser,
+    updateUser,
+    deleteToken,
+    getGreenhouse,
+    addGreenhouse,
+    addPlant,
+    updatePlants,
+    getPlants,
+    getPlantInventory,
+    addPlantInventory,
+    updatePlantInventory,
+    getPotInventory,
+    addPotInventory,
+    updatePotInventory,
+    getFoodInventory,
+    addFoodInventory,
+    updateFoodInventory,
+    addTask,
+    getTasks,
+    updateTask,
 };

@@ -7,29 +7,34 @@ export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrig
     const [potInventory, setPotInventory] = React.useState({});
     const [foodInventory, setFoodInventory] = React.useState({});
 
-    // React.useEffect(() => {
-    //     fetch('/api/inventory/plants')
-    //     .then((response) => response.json())
-    //     .then((plantInventory) => {
-    //         setPlantInventory(plantInventory);
-    //     });
-    // }, [trigger]);
+    React.useEffect(() => {
+        fetch('/api/inventory/plants')
+        .then((response) => response.json())
+        // .then((response) => response.text())
+        // .then((responseText) => console.log(responseText))
+        .then((plantInventory) => {
+            setPlantInventory(plantInventory);
+            // console.log(plantInventory);
+        });
+    }, []);
 
-    // React.useEffect(() => {
-    //     fetch('/api/inventory/pots')
-    //     .then((response) => response.json())
-    //     .then((potInventory) => {
-    //         setPotInventory(potInventory);
-    //     });
-    // }, [trigger]);
+    React.useEffect(() => {
+        fetch('/api/inventory/pots')
+        .then((response) => response.json())
+        // .then((response) => response.text())
+        // .then((responseText) => console.log(responseText))
+        .then((potInventory) => {
+            setPotInventory(potInventory);
+        });
+    }, []);
 
-    // React.useEffect(() => {
-    //     fetch('/api/inventory/food')
-    //     .then((response) => response.json())
-    //     .then((foodInventory) => {
-    //         setFoodInventory(foodInventory);
-    //     });
-    // }, [trigger]);
+    React.useEffect(() => {
+        fetch('/api/inventory/food')
+        .then((response) => response.json())
+        .then((foodInventory) => {
+            setFoodInventory(foodInventory);
+        });
+    }, []);
 
     async function onCheck(listItem) {
         const task = new ListItem(listItem._id, listItem.text, listItem.completed, listItem.completedUser);
@@ -37,16 +42,11 @@ export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrig
         // console.log(task);
         // console.log(task.completed);
         await updateTask(task);
-        // const task = new ListItem(listItem.text);
-        // task.toggleComplete();
-        // updateTask(task);
 
-        // generateRandomKeys();
-        // setTrigger(prev => prev + 1);
-        console.log('Trigger:', trigger);
+        generateRandomKeys();
+
         trigger = trigger + 1;
         setTrigger(trigger);
-        console.log('Updated trigger:', trigger);
     }
 
     function generateRandomKeys() {
@@ -81,8 +81,15 @@ export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrig
         const plantQuantity = plantInventory[plantType] + 1;
         const potQuantity = potInventory[potType] + 1;
 
+        console.log('Plant type:', plantType);
+        console.log('Plant quantity:', plantQuantity);
+        console.log('Pot type:', potType);
+        console.log('Pot quantity:', potQuantity);
+
         foodInventory["water"] = foodInventory["water"] + 1 || 1;
         foodInventory["food"] = foodInventory["food"] + 1 || 1;
+
+        console.log(foodInventory["water"]);
 
         await fetch('/api/inventory/plants', {
             method: 'PUT',
