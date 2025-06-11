@@ -12,6 +12,10 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
     const [list, setList] = React.useState([]);
     const [task, setTask] = React.useState("");
     const [trigger, setTrigger] = React.useState(0);
+    const [inventoryTrigger, setInventoryTrigger] = React.useState(0);
+    const [plantInventory, setPlantInventory] = React.useState({});
+    const [potInventory, setPotInventory] = React.useState({});
+    const [foodInventory, setFoodInventory] = React.useState({});
 
     React.useEffect(() => {
       fetch('/api/tasks')
@@ -26,6 +30,35 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
             console.log(list);
         });
     }, [trigger]);
+    
+    React.useEffect(() => {
+        fetch('/api/inventory/plants')
+        .then((response) => response.json())
+        // .then((response) => response.text())
+        // .then((responseText) => console.log(responseText))
+        .then((plantInventory) => {
+            setPlantInventory(plantInventory);
+            // console.log(plantInventory);
+        });
+    }, []);
+    
+    React.useEffect(() => {
+        fetch('/api/inventory/pots')
+        .then((response) => response.json())
+        // .then((response) => response.text())
+        // .then((responseText) => console.log(responseText))
+        .then((potInventory) => {
+            setPotInventory(potInventory);
+        });
+    }, []);
+    
+    React.useEffect(() => {
+        fetch('/api/inventory/food')
+        .then((response) => response.json())
+        .then((foodInventory) => {
+            setFoodInventory(foodInventory);
+        });
+    }, []);
 
     const handleChange = (event) => {
         setTask(event.target.value);
@@ -62,7 +95,7 @@ export function Field_Guide({ taskList, addTask, increaseInventory }) {
         <main className='field-guide-main'>
             <div className="list">
                 {list.map((listItem) => (
-                    <ListComponent listItem={listItem} increaseInventory={increaseInventory} trigger={trigger} setTrigger={setTrigger} />
+                    <ListComponent listItem={listItem} increaseInventory={increaseInventory} trigger={trigger} setTrigger={setTrigger} plantInventory={plantInventory} potInventory={potInventory} foodInventory={foodInventory} />
                 ))}
             </div>
 

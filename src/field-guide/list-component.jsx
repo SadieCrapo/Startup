@@ -2,39 +2,39 @@ import React from 'react';
 import './list-item';
 import { ListItem } from './list-item';
 
-export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrigger }) => {
-    const [plantInventory, setPlantInventory] = React.useState({});
-    const [potInventory, setPotInventory] = React.useState({});
-    const [foodInventory, setFoodInventory] = React.useState({});
+export const ListComponent = ({ listItem, oldIncreaseInventory, trigger, setTrigger, plantInventory, potInventory, foodInventory }) => {
+    // const [plantInventory, setPlantInventory] = React.useState({});
+    // const [potInventory, setPotInventory] = React.useState({});
+    // const [foodInventory, setFoodInventory] = React.useState({});
 
-    React.useEffect(() => {
-        fetch('/api/inventory/plants')
-        .then((response) => response.json())
-        // .then((response) => response.text())
-        // .then((responseText) => console.log(responseText))
-        .then((plantInventory) => {
-            setPlantInventory(plantInventory);
-            // console.log(plantInventory);
-        });
-    }, []);
+    // React.useEffect(() => {
+    //     fetch('/api/inventory/plants')
+    //     .then((response) => response.json())
+    //     // .then((response) => response.text())
+    //     // .then((responseText) => console.log(responseText))
+    //     .then((plantInventory) => {
+    //         setPlantInventory(plantInventory);
+    //         // console.log(plantInventory);
+    //     });
+    // }, []);
 
-    React.useEffect(() => {
-        fetch('/api/inventory/pots')
-        .then((response) => response.json())
-        // .then((response) => response.text())
-        // .then((responseText) => console.log(responseText))
-        .then((potInventory) => {
-            setPotInventory(potInventory);
-        });
-    }, []);
+    // React.useEffect(() => {
+    //     fetch('/api/inventory/pots')
+    //     .then((response) => response.json())
+    //     // .then((response) => response.text())
+    //     // .then((responseText) => console.log(responseText))
+    //     .then((potInventory) => {
+    //         setPotInventory(potInventory);
+    //     });
+    // }, []);
 
-    React.useEffect(() => {
-        fetch('/api/inventory/food')
-        .then((response) => response.json())
-        .then((foodInventory) => {
-            setFoodInventory(foodInventory);
-        });
-    }, []);
+    // React.useEffect(() => {
+    //     fetch('/api/inventory/food')
+    //     .then((response) => response.json())
+    //     .then((foodInventory) => {
+    //         setFoodInventory(foodInventory);
+    //     });
+    // }, []);
 
     async function onCheck(listItem) {
         const task = new ListItem(listItem._id, listItem.text, listItem.completed, listItem.completedUser);
